@@ -278,7 +278,7 @@ f_id_original = 'original_id_clean.txt'
 # sentence id original
 f_id_postag = 'original_id_clean_postag.txt'
 # sentence id pos tag
-f_dictionary = 'enhanced_crawl.txt'
+f_dictionary = 'enhanced_dictionary.txt'
 # dictionary
 
 ## the end list of files
@@ -324,6 +324,7 @@ def get_dictionary(file):
 			dictionary[word_indo] = []
 		tokens = line[1].split(' ')
 		for word_en in tokens:
+			word_en = word_en.split('||')[0]
 			if word_en not in dictionary[word_indo]:
 				dictionary[word_indo].append(word_en)
 	return dictionary
@@ -340,6 +341,29 @@ def reading_testing_file(filename):
 ## end of processing
 
 
+## some methods
+
+
+def get_indo_sentences_and_classes(sentences, target_word, english_tagged_sentences, dictionary):
+	en_words = dictionary[target_word]
+	result_sentences, result_classes = [], []
+	for index in range(len(sentences)):
+		index = index+1
+		sentence_indo = sentences[index]
+		en_tag_sentence = english_tagged_sentences[index]
+		sense_key = None
+		for english_tag_token in en_tag_sentence:
+			if english_tag_token.word in en_words:
+				# correct translation found in the english tagged sentence (with tag)
+				found_en_word = True
+				sense_key = english_tag_token.sense_key
+		if ' '+ target_word +' ' in sentence_indo and sense_key != None:
+			result_sentences.append(sentence_indo)
+			result_classes.append(sense_key)
+	return (result_sentences, result_classes)
+
+## some methods
+
 ## script begin here
 
 english_tagged_sentences = get_list_en_tag('Resources/'+f_en_tag_min)
@@ -350,6 +374,8 @@ if len(sys.argv) > 1:
 	# if we want to add some words to be tested (Testing environment)
 	testing_file = sys.argv[1]
 	testing_words = reading_testing_file(testing_file)
-
+	for word in testing_words:
+		(sentences, classes) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
+		print len(sentences), len(classes), word
 
 ## script end here
