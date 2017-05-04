@@ -32,9 +32,9 @@ class WSDIndonesia:
 		# create stemmer
 		factory = StemmerFactory()
 		stemmer = factory.create_stemmer()
-		self.target_word = target_word.lower()
+		self.target_word = stemmer.stem(target_word.lower())
 		for x in range(len(sentences)):
-			sentences[x] = self.remove_punctuation(sentences[x].lower())
+			sentences[x] = stemmer.stem(self.remove_punctuation(sentences[x].lower()))
 		self.sentences = sentences
 		self.classes = classes
 
@@ -278,7 +278,8 @@ f_id_original = 'original_id_clean.txt'
 # sentence id original
 f_id_postag = 'original_id_clean_postag.txt'
 # sentence id pos tag
-f_dictionary = 'enhanced_dictionary.txt'
+#f_dictionary = 'enhanced_dictionary.txt'
+f_dictionary = 'enhanced_crawl.txt'
 # dictionary
 f_stopwords = 'stopwords.txt'
 # stopword file
