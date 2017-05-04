@@ -273,9 +273,13 @@ class WSDIndonesia:
 ## list of files
 
 f_en_tag_min = 'en_tag_corpus_ignore_new.min.xml'
+# en tag xml file
 f_id_original = 'original_id_clean.txt'
+# sentence id original
 f_id_postag = 'original_id_clean_postag.txt'
+# sentence id pos tag
 f_dictionary = 'enhanced_crawl.txt'
+# dictionary
 
 ## the end list of files
 
@@ -346,6 +350,6 @@ if len(sys.argv) > 1:
 	# if we want to add some words to be tested (Testing environment)
 	testing_file = sys.argv[1]
 	testing_words = reading_testing_file(testing_file)
-	print testing_words
+
 
 ## script end here
