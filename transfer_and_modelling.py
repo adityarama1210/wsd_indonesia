@@ -380,7 +380,7 @@ def get_indo_sentences_and_classes(sentences, target_word, english_tagged_senten
 english_tagged_sentences = get_list_en_tag('Resources/'+f_en_tag_min)
 indo_original_sentences = get_list_id_original('Resources/'+f_id_original)
 dictionary = get_dictionary('Resources/'+f_dictionary)
-stopwords = get_stopwords('Resrouces/'+f_stopwords)
+stopwords = get_stopwords('Resources/'+f_stopwords)
 
 if len(sys.argv) > 1:
 	# if we want to add some words to be tested (Testing environment)
@@ -391,5 +391,10 @@ if len(sys.argv) > 1:
 		for word in testing_words:
 			(sentences, classes) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
 			wsd = WSDIndonesia(stopwords, sentences, classes, word)
+			wsd.remove_stopword()
+			top_words = wsd.get_bag_of_words()
+			features = wsd.get_features(top_words)
+			wsd.disambiguate(features)
+
 
 ## script end here
