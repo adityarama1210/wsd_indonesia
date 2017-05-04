@@ -280,6 +280,8 @@ f_id_postag = 'original_id_clean_postag.txt'
 # sentence id pos tag
 f_dictionary = 'enhanced_dictionary.txt'
 # dictionary
+f_stopwords = 'stopwords.txt'
+# stopword file
 
 ## the end list of files
 
@@ -310,6 +312,15 @@ def get_list_id_original(file):
 		line = line.strip()
 		result[sentence_counter] = line
 		sentence_counter += 1
+	file.close()
+	return result
+
+def get_stopwords(file):
+	result = []
+	file = open(file, 'r')
+	for line in file:
+		line = line.strip()
+		result.append(line)
 	file.close()
 	return result
 
@@ -369,13 +380,16 @@ def get_indo_sentences_and_classes(sentences, target_word, english_tagged_senten
 english_tagged_sentences = get_list_en_tag('Resources/'+f_en_tag_min)
 indo_original_sentences = get_list_id_original('Resources/'+f_id_original)
 dictionary = get_dictionary('Resources/'+f_dictionary)
+stopwords = get_stopwords('Resrouces/'+f_stopwords)
 
 if len(sys.argv) > 1:
 	# if we want to add some words to be tested (Testing environment)
-	testing_file = sys.argv[1]
-	testing_words = reading_testing_file(testing_file)
-	for word in testing_words:
-		(sentences, classes) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
-		print len(sentences), len(classes), word
+	_type = sys.argv[1]
+	if _type == "testing":
+		testing_file = sys.argv[2]
+		testing_words = reading_testing_file(testing_file)
+		for word in testing_words:
+			(sentences, classes) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
+			wsd = WSDIndonesia(stopwords, sentences, classes, word)
 
 ## script end here
