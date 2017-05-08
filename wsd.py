@@ -12,6 +12,10 @@ from collections import Counter
 def remove_punctuation(line):
 	return re.sub('[\'\"!\,\.\(\)\?\;\:]', '', line)
 
+def is_punctuation(line):
+	m = re.match('[\'\"!\,\.\(\)\?\;\:]', line)
+	return m != None
+
 # All needed function
 
 # All needed class
@@ -32,9 +36,11 @@ class WSDIndonesia:
 		# create stemmer
 		factory = StemmerFactory()
 		stemmer = factory.create_stemmer()
-		self.target_word = stemmer.stem(target_word.lower())
+		#self.target_word = stemmer.stem(target_word.lower())
+		self.target_word = target_word.lower()
 		for x in range(len(sentences)):
-			sentences[x] = stemmer.stem(self.remove_punctuation(sentences[x].lower()))
+			#sentences[x] = stemmer.stem(self.remove_punctuation(sentences[x].lower()))
+			sentences[x] = self.remove_punctuation(sentences[x].lower())
 		self.sentences = sentences
 		self.classes = classes
 
@@ -94,14 +100,20 @@ class WSDIndonesia:
 			x_features.append(arr)
 		return x_features
 
-	def get_pos_tag_features(self, file):
-		file_tag = open(file.replace('.txt','_tag.txt'), 'r')
+	def get_pos_tag_features(self, file, index_for_sentence):
+		id_tag_sentences = []
+		file_tag = open('Resources/'+file, 'r')
 		temp_features = [[],[],[]]
 		for line in file_tag:
+			id_tag_sentences.append(line.strip())
+		file_tag.close()
+
+		for x in index_for_sentence:
+			line = id_tag_sentences[x]
 			line = line.strip().split(' ')
 			for x in range(len(line)):
 				token = line[x].split('_')
-				if token[0] == self.target_word:
+				if token[0].lower() == self.target_word:
 					# take -1 word pos tag
 					if x-1 >= 0:
 						token_1 = line[x-1].split('_')
@@ -117,7 +129,8 @@ class WSDIndonesia:
 					else:
 						temp_features[2].append('')
 					break
-		file_tag.close()
+
+
 		first = Counter(temp_features[0]).keys()
 		second = Counter(temp_features[1]).keys()
 		third = Counter(temp_features[2]).keys()
@@ -141,16 +154,11 @@ class WSDIndonesia:
 				else:
 					t_a.append(0)
 			final_features.append(t_a)
+
 		return final_features
 
 
-	def get_word_embedding_features(self):
-		fname = '../word_embed_model_ignore/wordembed-single-lowcase'
-		model = gensim.models.Word2Vec.load(fname)
-		#temp_sentences = []
-		#for sentence in self.sentences:
-		#	temp_sentences.append(sentence.strip().split())
-		#model = gensim.models.Word2Vec(temp_sentences, min_count=1)
+	def get_word_embedding_features(self, model):
 		temp_sentences = []
 		for sentence in self.sentences:
 			#arr = self.zerolistmaker(len(model[self.target_word]) * 2)
@@ -224,7 +232,7 @@ class WSDIndonesia:
 		return features
 
 
-	def concat_features_and_word_embedding(self, f, w_f):
+	def concat_features(self, f, w_f):
 		final_features = []
 		for x in range(len(f)):
 			final_features.append(f[x] + w_f[x])
@@ -266,25 +274,6 @@ class WSDIndonesia:
 
 
 # All needed class
-
-
-# Load and process some needed file #
-
-## list of files
-
-f_en_tag_min = 'en_tag_corpus_ignore_new.min.xml'
-# en tag xml file
-f_id_original = 'original_id_clean.txt'
-# sentence id original
-f_id_postag = 'original_id_clean_postag.txt'
-# sentence id pos tag
-#f_dictionary = 'enhanced_dictionary.txt'
-f_dictionary = 'enhanced_crawl.txt'
-# dictionary
-f_stopwords = 'stopwords.txt'
-# stopword file
-
-## the end list of files
 
 ## process the needed files
 
@@ -355,8 +344,13 @@ def reading_testing_file(filename):
 
 ## some methods
 
+def word_in_sentence_corner(sentence, word):
+	regex = ' ' + word + '$|^' +  word + ' | ' + word + ' |^' + word + '$'
+	m = re.search(regex, sentence)
+	return m != None
 
 def get_indo_sentences_and_classes(sentences, target_word, english_tagged_sentences, dictionary):
+	index_for_sentence = []
 	en_words = dictionary[target_word]
 	result_sentences, result_classes = [], []
 	for index in range(len(sentences)):
@@ -369,14 +363,51 @@ def get_indo_sentences_and_classes(sentences, target_word, english_tagged_senten
 				# correct translation found in the english tagged sentence (with tag)
 				found_en_word = True
 				sense_key = english_tag_token.sense_key
-		if ' '+ target_word +' ' in sentence_indo and sense_key != None:
+		if (word_in_sentence_corner(sentence_indo, target_word)) and sense_key != None:
 			result_sentences.append(sentence_indo)
 			result_classes.append(sense_key)
-	return (result_sentences, result_classes)
+			index_for_sentence.append(index-1)
+			# INDEX IS ARRAY INDEX WHICH START FORM ZERO
+	return (result_sentences, result_classes, index_for_sentence)
+
+def get_indo_sentences_f_postag(file):
+	f = open('Resources/'+file, 'r')
+	sentences = []
+	for line in f:
+		line = line.strip().split(' ')
+		sentence = ''
+		for token in line:
+			token = token.split('_')
+			word = token[0].lower()
+			if (not is_punctuation(word)):
+				sentence = sentence + word + ' '
+		sentences.append(sentence.strip())
+	f.close()
+	return sentences
 
 ## some methods
 
 ## script begin here
+
+# for resource file
+
+## list of files
+
+f_en_tag_min = 'en_tag_corpus_ignore_new.min.xml'
+# en tag xml file
+f_id_original = 'original_id_clean.txt'
+# sentence id original
+f_id_postag = 'original_id_clean_postag.txt'
+# sentence id pos tag
+f_dictionary = 'enhanced_dictionary.txt'
+#f_dictionary = 'enhanced_crawl.txt'
+# dictionary
+f_stopwords = 'stopwords.txt'
+# stopword file
+f_word_embedding_model = 'model_ignore/wordembed-single-lowcase'
+## the end list of files
+
+
 
 english_tagged_sentences = get_list_en_tag('Resources/'+f_en_tag_min)
 indo_original_sentences = get_list_id_original('Resources/'+f_id_original)
@@ -386,15 +417,40 @@ stopwords = get_stopwords('Resources/'+f_stopwords)
 if len(sys.argv) > 1:
 	# if we want to add some words to be tested (Testing environment)
 	_type = sys.argv[1]
+	# python wsd.py <_type>
 	if _type == "testing":
+		# python wsd.py <_type> testing <testing_file>
+		if len(sys.argv) != 4:
+			print "python wsd.py testing <testing_file> <f1|f2|f3|f4>"
+			exit()
+		if len(sys.argv) == 4 and sys.argv[3] == 'f2':
+			# load word embedding model for efficiency
+			model = gensim.models.Word2Vec.load(f_word_embedding_model)
+
 		testing_file = sys.argv[2]
 		testing_words = reading_testing_file(testing_file)
 		for word in testing_words:
-			(sentences, classes) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
+			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
 			wsd = WSDIndonesia(stopwords, sentences, classes, word)
 			wsd.remove_stopword()
-			top_words = wsd.get_bag_of_words()
-			features = wsd.get_features(top_words)
+			if sys.argv[3] == 'f1':
+				# just bag of words
+				top_words = wsd.get_bag_of_words()
+				features = wsd.get_features(top_words)
+			elif sys.argv[3] == 'f2':
+				# word embedding
+				features = wsd.get_word_embedding_features(model)
+			elif sys.argv[3] == 'f3':
+				# pos tagging only
+				features = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
+			elif sys.argv[3] == 'f4':
+				# pos tagging and bag of words
+				f1 = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
+				f2 = wsd.get_bag_of_words()
+				features = wsd.concat_features(f1, f2)
+			else:
+				print 'Feature doesn\'t exist!'
+				exit()
 			wsd.disambiguate(features)
 
 
