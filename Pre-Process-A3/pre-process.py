@@ -32,8 +32,8 @@ for line in f:
 				en_word = remove_punctuation(token[0].strip()).lower()
 				numbers = None
 				if len(token) > 1:
-					print numbers
-					numbers = map(to_i, token[1].strip().split(' '))
+					if token[1].strip() != '':
+						numbers = map(to_i, token[1].strip().split(' '))
 				if numbers and len(numbers) > 0:
 					corresponding_indo_words = ''
 					for number in numbers:
