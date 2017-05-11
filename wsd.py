@@ -257,8 +257,10 @@ class WSDIndonesia:
 		return float(res)
 
 	def print_sentence_and_class(self):
+		print "===<BEGIN>==="+ self.target_word + "===<BEGIN>==="
 		for x in range(len(sentences)):
 			print (self.sentences[x] + '||' + self.classes[x])
+		print "===<END>===" + self.target_word +"===<END>==="
 
 	def disambiguate(self, features):
 		# initiate classifier
@@ -460,7 +462,6 @@ if len(sys.argv) > 1:
 		# python wsd.py sense_transfering <testing_file>
 		testing_file = sys.argv[2]
 		testing_words = reading_testing_file(testing_file)
-		wsd.print_sentence_and_class()
 		for word in testing_words:
 			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
 			wsd = WSDIndonesia(stopwords, sentences, classes, word)
