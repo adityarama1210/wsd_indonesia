@@ -311,6 +311,23 @@ def get_list_id_original(file):
 	file.close()
 	return result
 
+def get_from_a3_post_process(file):
+	result = {}
+	sentence_counter = 1
+	file = open(file, 'r')
+	for line in file:
+		result[sentence_counter] = []
+		line = line.strip().split('##')
+		for token in line:
+			m = re.search('<pair>(.*)\|\|(.*)</pair>', token)
+			if m:
+				result[sentence_counter].append((m.group(1), m.group(2)))
+				# (english,indo) -> (eat,makan) atau (long,panjang), dll
+		sentence_counter += 1
+
+	file.close()
+	return result
+
 def get_stopwords(file):
 	result = []
 	file = open(file, 'r')
@@ -411,6 +428,8 @@ f_dictionary = 'enhanced_dictionary.txt'
 f_stopwords = 'stopwords.txt'
 # stopword file
 f_word_embedding_model = 'model_ignore/wordembed-single-lowcase'
+# word embedding model
+f_a3_file = 'Post-Process-A3/A3_post_process.txt'
 ## the end list of files
 
 
@@ -419,6 +438,7 @@ english_tagged_sentences = get_list_en_tag('Resources/'+f_en_tag_min)
 indo_original_sentences = get_list_id_original('Resources/'+f_id_original)
 dictionary = get_dictionary('Resources/'+f_dictionary)
 stopwords = get_stopwords('Resources/'+f_stopwords)
+a3_file = get_from_a3_post_process(f_a3_file)
 
 if len(sys.argv) > 1:
 	# if we want to add some words to be tested (Testing environment)
@@ -466,7 +486,6 @@ if len(sys.argv) > 1:
 			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
 			wsd = WSDIndonesia(stopwords, sentences, classes, word)
 			wsd.print_sentence_and_class()
-
 
 
 
