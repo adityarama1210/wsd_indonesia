@@ -256,6 +256,10 @@ class WSDIndonesia:
 			res += counter_arr[key]
 		return float(res)
 
+	def print_sentence_and_class(self):
+		for x in range(len(sentences)):
+			print (self.sentences[x] + '||' + self.classes[x])
+
 	def disambiguate(self, features):
 		# initiate classifier
 		clf = svm.SVC(kernel='linear')
@@ -419,7 +423,7 @@ if len(sys.argv) > 1:
 	_type = sys.argv[1]
 	# python wsd.py <_type>
 	if _type == "testing":
-		# python wsd.py <_type> testing <testing_file>
+		# python wsd.py testing <testing_file> <feature>
 		if len(sys.argv) != 4:
 			print "python wsd.py testing <testing_file> <f1|f2|f3|f4>"
 			exit()
@@ -452,6 +456,11 @@ if len(sys.argv) > 1:
 				print 'Feature doesn\'t exist!'
 				exit()
 			wsd.disambiguate(features)
+	elif _type == "sense_transfering":
+		# python wsd.py sense_transfering <testing_file>
+		testing_file = sys.argv[2]
+		wsd.print_sentence_and_class()
+
 
 
 ## script end here
