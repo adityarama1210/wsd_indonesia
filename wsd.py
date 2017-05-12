@@ -328,6 +328,15 @@ def get_from_a3_post_process(file):
 	file.close()
 	return result
 
+def get_en_from_a3_by_indo_word(indo, a3):
+	# a3 in form of [(eat,makan),(long,panjang),(distance,jarak),...]
+	for (en_w, id_w) in a3:
+		if indo == id_w:
+			return en_w
+	return None
+
+
+
 def get_stopwords(file):
 	result = []
 	file = open(file, 'r')
@@ -372,7 +381,7 @@ def word_in_sentence_corner(sentence, word):
 	m = re.search(regex, sentence)
 	return m != None
 
-def get_indo_sentences_and_classes(sentences, target_word, english_tagged_sentences, dictionary):
+def get_indo_sentences_and_classes(sentences, target_word, english_tagged_sentences, dictionary, a3_file):
 	index_for_sentence = []
 	en_words = dictionary[target_word]
 	result_sentences, result_classes = [], []
@@ -381,11 +390,14 @@ def get_indo_sentences_and_classes(sentences, target_word, english_tagged_senten
 		sentence_indo = sentences[index]
 		en_tag_sentence = english_tagged_sentences[index]
 		sense_key = None
-		for english_tag_token in en_tag_sentence:
-			if english_tag_token.word in en_words:
-				# correct translation found in the english tagged sentence (with tag)
-				found_en_word = True
-				sense_key = english_tag_token.sense_key
+		# check on the A3 file, what is the pair word in english?
+		a3 = a3_file[index]
+		english_word = get_en_from_a3_by_indo_word(target_word, a3)
+		if english_word and english_word in en_words:
+			for english_tag_token in en_tag_sentence:
+				if english_tag_token.word in en_words:
+					# correct translation found in the english tagged sentence (with tag)
+					sense_key = english_tag_token.sense_key
 		if (word_in_sentence_corner(sentence_indo, target_word)) and sense_key != None:
 			result_sentences.append(sentence_indo)
 			result_classes.append(sense_key)
@@ -429,7 +441,7 @@ f_stopwords = 'stopwords.txt'
 # stopword file
 f_word_embedding_model = 'model_ignore/wordembed-single-lowcase'
 # word embedding model
-f_a3_file = 'Post-Process-A3/A3_post_process.txt'
+f_a3_file = 'Post-Process-A3/output_a3.txt'
 ## the end list of files
 
 
@@ -456,7 +468,7 @@ if len(sys.argv) > 1:
 		testing_file = sys.argv[2]
 		testing_words = reading_testing_file(testing_file)
 		for word in testing_words:
-			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
+			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary, a3_file)
 			wsd = WSDIndonesia(stopwords, sentences, classes, word)
 			wsd.remove_stopword()
 			if sys.argv[3] == 'f1':
@@ -483,7 +495,7 @@ if len(sys.argv) > 1:
 		testing_file = sys.argv[2]
 		testing_words = reading_testing_file(testing_file)
 		for word in testing_words:
-			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary)
+			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary, a3_file)
 			wsd = WSDIndonesia(stopwords, sentences, classes, word)
 			wsd.print_sentence_and_class()
 
