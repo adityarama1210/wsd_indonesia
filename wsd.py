@@ -207,9 +207,7 @@ class WSDIndonesia:
 		return temp_sentences
 
 
-	def get_word_embedding_features_full_token(self):
-		fname = '../word_embed_model_ignore/wordembed-single-lowcase'
-		model = gensim.models.Word2Vec.load(fname)
+	def get_word_embedding_features_full_token(self, model):
 		max_length = 0
 		for sentence in self.sentences:
 			temp_length = len(sentence.split(' '))
@@ -459,7 +457,7 @@ if len(sys.argv) > 1:
 	if _type == "testing":
 		# python wsd.py testing <testing_file> <feature>
 		if len(sys.argv) != 4:
-			print "python wsd.py testing <testing_file> <f1|f2|f3|f4>"
+			print "python wsd.py testing <testing_file> <f1|f2a|f2b|f3|f4>"
 			exit()
 		if len(sys.argv) == 4 and sys.argv[3] == 'f2':
 			# load word embedding model for efficiency
@@ -473,18 +471,22 @@ if len(sys.argv) > 1:
 			wsd.remove_stopword()
 			if sys.argv[3] == 'f1':
 				# just bag of words
-				top_words = wsd.get_bag_of_words()
-				features = wsd.get_features(top_words)
-			elif sys.argv[3] == 'f2':
+				bag_of_words = wsd.get_bag_of_words()
+				features = wsd.get_features(bag_of_words)
+			elif sys.argv[3] == 'f2a':
 				# word embedding
 				features = wsd.get_word_embedding_features(model)
+			elif sys.argv[3] == 'f2b':
+				# word embedding
+				features = wsd.get_word_embedding_features_full_token(model)
 			elif sys.argv[3] == 'f3':
 				# pos tagging only
 				features = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
 			elif sys.argv[3] == 'f4':
 				# pos tagging and bag of words
 				f1 = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
-				f2 = wsd.get_bag_of_words()
+				bag_of_words = wsd.get_bag_of_words()
+				f2 = wsd.get_features(bag_of_words)
 				features = wsd.concat_features(f1, f2)
 			else:
 				print 'Feature doesn\'t exist!'
