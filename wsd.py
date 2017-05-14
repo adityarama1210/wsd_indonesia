@@ -418,15 +418,15 @@ def get_indo_sentences_and_classes(sentences, target_word, english_tagged_senten
 		index = index+1
 		sentence_indo = sentences[index]
 		en_tag_sentence = english_tagged_sentences[index]
-		sense_key = None
 		# check on the A3 file, what is the pair word in english?
 		a3 = a3_file[index]
 		english_word = get_en_from_a3_by_indo_word(target_word, a3)
 		if english_word and english_word in en_words:
-			for english_tag_token in en_tag_sentence:
-				if english_tag_token.word in en_words:
-					# correct translation found in the english tagged sentence (with tag)
-					sense_key = english_tag_token.sense_key
+			sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
+			#for english_tag_token in en_tag_sentence:
+				#if english_tag_token.word in en_words:
+				#	# correct translation found in the english tagged sentence (with tag)
+				#	sense_key = english_tag_token.sense_key
 		if (word_in_sentence_corner(sentence_indo, target_word)) and sense_key != None:
 			result_sentences.append(sentence_indo)
 			result_classes.append(sense_key)
