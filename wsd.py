@@ -369,6 +369,37 @@ def reading_testing_file(filename):
 	file.close()
 	return result
 
+def get_sense_key_from_en_tag_sentence(en_words_from_dict, en_tag_sentence):
+	sense_key = None
+	for english_tag_token in en_tag_sentence:
+		if english_tag_token.word in en_words_from_dict:
+			# return the sense
+			sense_key = english_tag_token.sense_key
+	return sense_key
+
+def produce_indo_sense_tagged_corpus(indo_original_sentences, english_tagged_sentences, dictionary, a3_file):
+	for key in indo_original_sentences:
+		indo_sentence = indo_original_sentences[key]
+		en_tag_sentence = english_tagged_sentences[key]
+		a3 = a3_file[key]
+		output = ''
+		for indo_word in indo_sentence.split(' '):
+			sense_key = None
+			if indo_word in dictionary:
+				en_words = dictionary[indo_word]
+				english_word = get_en_from_a3_by_indo_word(indo_word, a3)
+				if english_word and english_word in en_words:
+					# the pair from A3 file exist in the dictionary
+					sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
+			if sense_key:
+				output = output + indo_word + '||' + sense_key + ' '
+			else:
+				output = output + indo_word + ' '
+		print output
+
+
+
+
 ## end of processing
 
 
@@ -500,6 +531,11 @@ if len(sys.argv) > 1:
 			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary, a3_file)
 			wsd = WSDIndonesia(stopwords, sentences, classes, word)
 			wsd.print_sentence_and_class()
+
+	elif _type == "produce_tagged_corpus":
+		# python wsd.py produce_tagged_corpus
+		produce_indo_sense_tagged_corpus(indo_original_sentences, english_tagged_sentences, dictionary, a3_file)
+
 
 
 
