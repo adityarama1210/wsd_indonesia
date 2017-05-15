@@ -171,7 +171,7 @@ def get_sentence_number(line):
 
 # input the name of giza file and anotator file here
 a3_giza_file = 'testing_giza.txt'
-a3_anotator_file_1 = '10_testing_2.txt'
+a3_anotator_file_1 = '10_testing_1.txt'
 a3_anotator_file_2 = '10_testing_2.txt'
 # this is the filename section
 
