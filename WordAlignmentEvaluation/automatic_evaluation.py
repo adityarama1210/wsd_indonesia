@@ -74,7 +74,8 @@ class Sentence:
 			print str(self.number), 'have different length in giza and anotator number 2'
 		'''
 		agreement = self.calculate_agreement(temp_anotator_1, temp_anotator_2)
-		return (p1, p2, r1, r2, agreement)
+		#return (p1, p2, r1, r2, agreement)
+		print p1, p2, r1, r2, agreement
 
 	def is_the_same(self, list_giza, list_anotator):
 		# bracket is in form of array of number / arr of number (in string form)
@@ -134,7 +135,7 @@ class Sentence:
 			print str(self.number), 'have different length in giza and anotator number', str(number)
 
 	def calculate_agreement(self, temp_anotator_1, temp_anotator_2):
-		if len(temp_anotator_1, temp_anotator_2):
+		if len(temp_anotator_1) == len(temp_anotator_2):
 			is_null_bracket = False
 			matches, total_anotator_1, total_anotator_2 = 0, 0, 0
 			for x in range(len(temp_anotator_1)):
@@ -157,7 +158,7 @@ class Sentence:
 					total_anotator_1 += numbers_anotator_1
 					total_anotator_2 += numbers_anotator_2
 			# return agreement as a total match / total length
-			return float(matches)/float(total_anotator_1)
+			return float(matches)/float(total_anotator_2)
 		else:
 			print str(self.number), " having different length in anotator 1 and 2"
 
@@ -219,7 +220,7 @@ for line in f_a3_anotator_1:
 			sentence.en_anotator_1 = line
 			state = 0
 
-f_a3_anotator.close()
+f_a3_anotator_1.close()
 
 for line in f_a3_anotator_2:
 	# from anotator 2
@@ -235,6 +236,7 @@ for line in f_a3_anotator_2:
 			sentence.en_anotator_2 = line
 			state = 0
 
+f_a3_anotator_2.close()
 
 for key in arr_of_sentence:
 	arr_of_sentence[key].evaluate()
