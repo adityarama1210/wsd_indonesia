@@ -75,7 +75,7 @@ class Sentence:
 		'''
 		agreement = self.calculate_agreement(temp_anotator_1, temp_anotator_2)
 		#return (p1, p2, r1, r2, agreement)
-		print p1, p2, r1, r2, agreement
+		print round(p1,3), round(p2,3), round(r1,3), round(r2,3), round(agreement,3)
 
 	def is_the_same(self, list_giza, list_anotator):
 		# bracket is in form of array of number / arr of number (in string form)
