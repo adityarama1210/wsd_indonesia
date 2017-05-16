@@ -421,13 +421,14 @@ def get_indo_sentences_and_classes(sentences, target_word, english_tagged_senten
 		# check on the A3 file, what is the pair word in english?
 		a3 = a3_file[index]
 		english_word = get_en_from_a3_by_indo_word(target_word, a3)
+		sense_key = None
 		if english_word and english_word in en_words:
 			sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
 			#for english_tag_token in en_tag_sentence:
 				#if english_tag_token.word in en_words:
 				#	# correct translation found in the english tagged sentence (with tag)
 				#	sense_key = english_tag_token.sense_key
-		if (word_in_sentence_corner(sentence_indo, target_word)) and sense_key != None:
+		if (word_in_sentence_corner(sentence_indo, target_word)) and sense_key:
 			result_sentences.append(sentence_indo)
 			result_classes.append(sense_key)
 			index_for_sentence.append(index-1)
@@ -491,7 +492,7 @@ if len(sys.argv) > 1:
 		if len(sys.argv) != 4:
 			print "python wsd.py testing <testing_file> <f1|f2a|f2b|f3|f4>"
 			exit()
-		if len(sys.argv) == 4 and sys.argv[3] == 'f2':
+		if len(sys.argv) == 4 and (sys.argv[3] == 'f2a' or sys.argv[3] == 'f2b'):
 			# load word embedding model for efficiency
 			model = gensim.models.Word2Vec.load(f_word_embedding_model)
 
