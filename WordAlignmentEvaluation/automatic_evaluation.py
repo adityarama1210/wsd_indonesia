@@ -75,7 +75,7 @@ class Sentence:
 		'''
 		agreement = self.calculate_agreement(temp_anotator_1, temp_anotator_2)
 		#return (p1, p2, r1, r2, agreement)
-		print round(p1,3), round(p2,3), round(r1,3), round(r2,3), round(agreement,3)
+		return round(p1,3), round(p2,3), round(r1,3), round(r2,3), round(agreement,3)
 
 	def is_the_same(self, list_giza, list_anotator):
 		# bracket is in form of array of number / arr of number (in string form)
@@ -238,5 +238,22 @@ for line in f_a3_anotator_2:
 
 f_a3_anotator_2.close()
 
+calculation = {
+	'precision_1' : 0,
+	'precision_2' : 0,
+	'recall_1' : 0,
+	'recall_2' : 0,
+	'f1_1' : 0,
+	'f1_2' : 0,
+	'agreement' : 0
+}
+
 for key in arr_of_sentence:
-	arr_of_sentence[key].evaluate()
+	(p1, p2, r1, r2, agreement) = arr_of_sentence[key].evaluate()
+	calculation['precision_1'] = float(calculation['precision_1'] + p1) / 2.0
+	calculation['precision_2'] = float(calculation['precision_2'] + p2) / 2.0
+	calculation['recall_1'] = float(calculation['recall_1'] + r1) / 2.0 
+	calculation['recall_2'] = float(calculation['recall_2'] + r2) / 2.0
+	calculation['agreement'] = float(calculation['agreement'] + agreement) / 2.0 
+
+print 'Precision 1:', calculation['precision_1'], 'Precision 2:', calculation['precision_2'], 'Recall 1:', calculation['recall_1'], 'Recall 2:', calculation['recall_2'], 'Agreement:', calculation['agreement']
