@@ -258,6 +258,7 @@ class WSDIndonesia:
 		print "===<BEGIN>==="+ self.target_word + "===<BEGIN>==="
 		for x in range(len(sentences)):
 			print (self.sentences[x] + '||' + self.classes[x])
+		print "===<STATISTIC>===#Classes", len(Counter(self.classes))," With ", str(Counter(self.classes)), "===</STATISTIC>===" 
 		print "===<END>===" + self.target_word +"===<END>==="
 
 	def disambiguate(self, features):
