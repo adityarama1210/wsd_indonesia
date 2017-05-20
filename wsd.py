@@ -3,6 +3,8 @@ import re, sys, nltk, gensim
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from sklearn import svm, tree, dummy
 from sklearn.model_selection import cross_val_score, ShuffleSplit
+from nltk.corpus import wordnet as wn
+from nltk.corpus.reader.wordnet import WordNetError
 from collections import Counter
 
 # the end of importing libraries
@@ -378,13 +380,37 @@ def get_sense_key_from_en_tag_sentence(en_words_from_dict, en_tag_sentence):
 			sense_key = english_tag_token.sense_key
 	return sense_key
 
+def get_similar_sense_key(dict_of_sense_key, sense_key, word):
+	if sense_key not in dict_of_sense_key[word]:
+		dict_of_sense_key[word][sense_key] = 1
+		# add new sense key to the dictionary
+	try:
+		synset_sense_key = wn.lemma_from_key(sense_key).synset()
+	except WordNetError:
+		synset_sense_key = None
+	if synset_sense_key:
+		for key in dict_of_sense_key[word].keys():
+			try:
+				synset = wn.lemma_from_key(key).synset()
+			except WordNetError:
+				synset = None
+			if synset and synset_sense_key:
+				if synset_sense_key.path_similarity(synset) > 0.5:
+					sense_key = key
+					# considered as the same meaning
+	return (dict_of_sense_key, sense_key)
+
+
 def produce_indo_sense_tagged_corpus(indo_original_sentences, english_tagged_sentences, dictionary, a3_file):
+	dict_of_sense_key = {}
 	for key in indo_original_sentences:
 		indo_sentence = indo_original_sentences[key]
 		en_tag_sentence = english_tagged_sentences[key]
 		a3 = a3_file[key]
 		output = ''
 		for indo_word in indo_sentence.split(' '):
+			if indo_word not in dict_of_sense_key:
+				dict_of_sense_key[indo_word] = {}
 			sense_key = None
 			if indo_word in dictionary:
 				en_words = dictionary[indo_word]
@@ -393,6 +419,7 @@ def produce_indo_sense_tagged_corpus(indo_original_sentences, english_tagged_sen
 					# the pair from A3 file exist in the dictionary
 					sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
 			if sense_key:
+				dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, indo_word)
 				output = output + indo_word + '||' + sense_key + ' '
 			else:
 				output = output + indo_word + ' '
