@@ -418,7 +418,6 @@ def get_json_of_postag(f_postag):
 			else:
 				postag = ''
 			json_s['sentences'][sentence_number]['words'].append({ 'word': word, 'pos': postag, 'sense_key': '' })
-		print json_s['sentences'][sentence_number]
 		sentence_number += 1
 	f.close()
 	return json_s
@@ -471,7 +470,7 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 					sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
 			if sense_key:
 				dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, indo_word)
-				json_s['sentences'][sentence_number]['words'][index]['pos'] = sense_key
+				json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
 	return json_s
 
 
