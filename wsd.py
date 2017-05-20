@@ -87,6 +87,136 @@ class WSDIndonesia:
 			result_arr.append(word)
 		return result_arr
 
+	def get_bag_of_words_feature_from_json(self):
+		temp_arr = []
+		for sentence_id in self.json_dict['sentences'].keys():
+			sentence = self.json_dict['sentences'][sentence_id]
+			for index in range(len(sentence['words'])):
+				word_obj = sentence['words'][index]
+				word = word_obj['word']
+				if word == self.target_word:
+					# take the -2 -1 +1 +2 word
+					if index-2 >= 0:
+						temp_arr.append(sentence['words'][index-2]['word'])
+					if index-1 >= 0:
+						temp_arr.append(sentence['words'][index-1]['word'])
+					if index+1 < len(sentence['words']):
+						temp_arr.append(sentence['words'][index+1]['word'])
+					if index+2 < len(sentence['words']):
+						temp_arr.append(sentence['words'][index+2]['word'])
+		temp_arr = Counter(temp_arr)
+		result_arr = []
+		for word in temp_arr.keys():
+			result_arr.append(word)
+		
+
+		# get the real features in one hot vector form
+
+		x_features = []
+		for sentence_id in self.json_dict['sentences'].keys():
+			sentence = self.json_dict['sentences'][sentence_id]
+			arr = self.zerolistmaker(len(result_arr))
+			for x in range(len(result_arr)):
+				# check if the sentence contain the words
+				for index in range(len(sentence['words'])):
+					word_obj = sentence['words'][index]
+					word = word_obj['word']
+					if word == result_arr[x]:
+						arr[x] = 1
+			x_features.append(arr)
+		temp_arr, result_arr = None, None
+		return x_features
+
+	def get_pos_tag_features_from_json(self):
+		temp_arr = [[],[],[]]
+		# first for -1 pos tag, second for target word pos tag, and so on
+		for sentence_id in self.json_dict['sentences'].keys():
+			sentence = self.json_dict['sentences'][sentence_id]
+			for index in range(len(sentence['words'])):
+				word_obj = sentence['words'][index]
+				word = word_obj['word']
+				pos = word_obj['pos']
+				if word == self.target_word:
+					# take the -1 0 +1 pos tag
+					if pos != '':
+						temp_arr[1].append(pos)
+					if index-1 >= 0 and sentence['words'][index-1]['pos'] != '':
+						temp_arr[0].append(sentence['words'][index-1]['pos'])
+					if index+1 < len(sentence['words']) and sentence['words'][index+1]['pos'] != '':
+						temp_arr[2].append(sentence['words'][index+1]['pos'])
+		
+		temp_arr[0], temp_arr[1], temp_arr[2] = Counter(temp_arr[0]), Counter(temp_arr[1]), Counter(temp_arr[2])
+		result_arr = [[],[],[]]
+		for x in range(len(temp_arr)):
+			for pos in temp_arr[x].keys():
+				result_arr[x].append(pos)
+
+		# get the real features in one hot vector form
+
+		x_features = []
+		for sentence_id in self.json_dict['sentences'].keys():
+			sentence = self.json_dict['sentences'][sentence_id]
+			arr_0 = self.zerolistmaker(len(result_arr[0]))
+			arr_1 = self.zerolistmaker(len(result_arr[1]))
+			arr_2 = self.zerolistmaker(len(result_arr[2]))
+			for index in range(len(sentence['words'])):
+				word_obj = sentence['words'][index]
+				word = word_obj['word']
+				pos = word_obj['pos']
+
+				if word == self.target_word:
+					if pos != '':
+						# which position is this pos tag in the 2nd array of result?
+						for x in range(len(result_arr[1])):
+							if result_arr[1][x] == pos:
+								arr_1[x] = 1
+					if index-1 >= 0:
+						if sentece['words'][index-1]['pos'] != '':
+							for x in range(len(result_arr[0])):
+							if result_arr[0][x] == sentece['words'][index-1]['pos']:
+								arr_0[x] = 1
+					if index+1 >= 0:
+						if sentece['words'][index+1]['pos'] != '':
+							for x in range(len(result_arr[2])):
+							if result_arr[2][x] == sentece['words'][index+1]['pos']:
+								arr_2[x] = 1
+			x_features.append(arr_0 + arr_1 + arr_2)
+		return x_features
+
+	def get_max_length_json(self):
+		tmp_max = 0
+		for sentence_id in self.json_dict['sentences'].keys():
+			sentence = self.json_dict['sentences'][sentence_id]
+			if len(sentence['words']) > tmp_max:
+				tmp_max = len(sentece['words'])
+		return tmp_max
+
+	def get_word_embedding_features_from_json(self, model):
+
+		# get the maximum length first!
+		max_length = self.get_max_length_json()
+		x_features = []
+		for sentence_id in self.json_dict['sentences'].keys():
+			sentence = self.json_dict['sentences'][sentence_id]
+			arr = []
+			for x in range(max_length):
+				if x >= 0 and x < len(sentence['words']):
+					word_obj = sentence['words'][x]
+					word = word_obj['word']
+					if word in model:
+						arr = arr + model[word].tolist()
+					else:
+						arr = arr + self.zerolistmaker(128)
+				else:
+					arr = arr + self.zerolistmaker(128)
+			x_features.append(arr)
+
+		return x_features
+
+
+
+
+
 	def remove_punctuation(self, line):
 		return re.sub('[\'\"!\,\.\(\)\?\;\:]', '', line)
 
@@ -249,6 +379,16 @@ class WSDIndonesia:
 					# remove the stopword
 					sentence = sentence.replace(stopword,' ')
 			self.sentences[index] = sentence
+
+	def remove_stopword_json(self):
+		for sentence_id in self.json_dict['sentences'].keys():
+			new_arr = []
+			sentence = self.json_dict['sentences'][sentence_id]
+			for word_obj in sentence['words']:
+				if word_obj['word'] not in self.stopwords:
+					# passed, this word could come through!
+					new_arr.append({'word': word_obj['word'], 'pos': word_obj['pos'], 'sense_key': word_obj['sense_key']})
+			self.json_dict['sentences'][sentence_id]['words'] = new_arr
 
 	def total_sum(self, counter_arr):
 		res = 0
