@@ -179,14 +179,14 @@ class WSDIndonesia:
 							if result_arr[1][x] == pos:
 								arr_1[x] = 1
 					if index-1 >= 0:
-						if sentece['words'][index-1]['pos'] != '':
+						if sentence['words'][index-1]['pos'] != '':
 							for x in range(len(result_arr[0])):
 								if result_arr[0][x] == sentence['words'][index-1]['pos']:
 									arr_0[x] = 1
 					if index+1 >= 0:
-						if sentece['words'][index+1]['pos'] != '':
+						if sentence['words'][index+1]['pos'] != '':
 							for x in range(len(result_arr[2])):
-								if result_arr[2][x] == sentece['words'][index+1]['pos']:
+								if result_arr[2][x] == sentence['words'][index+1]['pos']:
 									arr_2[x] = 1
 			x_features.append(arr_0 + arr_1 + arr_2)
 		return x_features
@@ -196,7 +196,7 @@ class WSDIndonesia:
 		for sentence_id in self.json_dict['sentences'].keys():
 			sentence = self.json_dict['sentences'][sentence_id]
 			if len(sentence['words']) > tmp_max:
-				tmp_max = len(sentece['words'])
+				tmp_max = len(sentence['words'])
 		return tmp_max
 
 	def get_word_embedding_features_from_json(self, model):
