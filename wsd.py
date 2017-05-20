@@ -33,6 +33,7 @@ class EnglishTagToken:
 		return self.sense_key
 
 class WSDIndonesia:
+	'''
 	def __init__(self, stopwords, sentences, classes, target_word):
 		self.stopwords = stopwords
 		# create stemmer
@@ -45,6 +46,13 @@ class WSDIndonesia:
 			sentences[x] = self.remove_punctuation(sentences[x].lower())
 		self.sentences = sentences
 		self.classes = classes
+	'''
+	def __init__(self, stopwords, json_dict, classes, target_word):
+		self.stopwords = stopwords
+		self.json_dict = json_dict
+		self.classes = classes
+		self.target_word = target_word
+
 
 	def zerolistmaker(self, n):
 	    listofzeros = [0] * n
@@ -173,13 +181,13 @@ class WSDIndonesia:
 					if index-1 >= 0:
 						if sentece['words'][index-1]['pos'] != '':
 							for x in range(len(result_arr[0])):
-							if result_arr[0][x] == sentece['words'][index-1]['pos']:
-								arr_0[x] = 1
+								if result_arr[0][x] == sentence['words'][index-1]['pos']:
+									arr_0[x] = 1
 					if index+1 >= 0:
 						if sentece['words'][index+1]['pos'] != '':
 							for x in range(len(result_arr[2])):
-							if result_arr[2][x] == sentece['words'][index+1]['pos']:
-								arr_2[x] = 1
+								if result_arr[2][x] == sentece['words'][index+1]['pos']:
+									arr_2[x] = 1
 			x_features.append(arr_0 + arr_1 + arr_2)
 		return x_features
 
@@ -649,6 +657,22 @@ def get_indo_sentences_and_classes(sentences, target_word, english_tagged_senten
 			# INDEX IS ARRAY INDEX WHICH START FORM ZERO
 	return (result_sentences, result_classes, index_for_sentence)
 
+def get_sentence_and_classes_from_json(json_dict, target_word):
+	new_json_dict = {'sentences': {}}
+	classes = []
+	for sentence_id in json_dict['sentences'].keys():
+		sentence = json_dict['sentences'][sentence_id]
+		for word_obj in sentence['words']:
+			word = word_obj['word']
+			sense_key = word_obj['sense_key']
+			if word == target_word and sense_key != '':
+				# get the current word sense key and sentence
+				classes.append(sense_key)
+				new_json_dict['sentences'][sentence_id] = sentence
+				break
+	return (new_json_dict, classes)
+
+
 def get_indo_sentences_f_postag(file):
 	f = open('Resources/'+file, 'r')
 	sentences = []
@@ -663,6 +687,11 @@ def get_indo_sentences_f_postag(file):
 		sentences.append(sentence.strip())
 	f.close()
 	return sentences
+
+def get_json_corpus(json_file):
+	with open(json_file) as data_file:    
+    		data = json.load(data_file)
+	return data
 
 ## some methods
 
@@ -687,6 +716,8 @@ f_stopwords = 'stopwords.txt'
 f_word_embedding_model = 'model_ignore/wordembed-single-lowcase'
 # word embedding model
 f_a3_file = 'Post-Process-A3/output_a3.txt'
+f_json_corpus = 'Resources/indonesia_sense_tagged_corpus.json'
+#json_file
 ## the end list of files
 
 
@@ -713,27 +744,36 @@ if len(sys.argv) > 1:
 		testing_file = sys.argv[2]
 		testing_words = reading_testing_file(testing_file)
 		for word in testing_words:
-			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary, a3_file)
-			wsd = WSDIndonesia(stopwords, sentences, classes, word)
-			wsd.remove_stopword()
+			#(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary, a3_file)
+			#wsd = WSDIndonesia(stopwords, sentences, classes, word)
+			#wsd.remove_stopword()
+			json_dict = get_json_corpus(f_json_corpus)
+			(json_dict, classes) = get_sentence_and_classes_from_json(json_dict, word)
+			wsd = WSDIndonesia(stopwords, json_dict, classes, word)
 			if sys.argv[3] == 'f1':
 				# just bag of words
-				bag_of_words = wsd.get_bag_of_words()
-				features = wsd.get_features(bag_of_words)
+				#bag_of_words = wsd.get_bag_of_words()
+				#features = wsd.get_features(bag_of_words)
+				features = wsd.get_bag_of_words_feature_from_json()
 			elif sys.argv[3] == 'f2a':
 				# word embedding
-				features = wsd.get_word_embedding_features(model)
+				#features = wsd.get_word_embedding_features(model)
+				features = wsd.get_word_embedding_features_from_json(model)
 			elif sys.argv[3] == 'f2b':
 				# word embedding
 				features = wsd.get_word_embedding_features_full_token(model)
+				features = wsd.get_word_embedding_features_from_json(model)
 			elif sys.argv[3] == 'f3':
 				# pos tagging only
-				features = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
+				#features = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
+				features = wsd.get_pos_tag_features_from_json()
 			elif sys.argv[3] == 'f4':
 				# pos tagging and bag of words
-				f1 = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
-				bag_of_words = wsd.get_bag_of_words()
-				f2 = wsd.get_features(bag_of_words)
+				#f1 = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
+				f1 = wsd.get_pos_tag_features_from_json()
+				#bag_of_words = wsd.get_bag_of_words()
+				#f2 = wsd.get_features(bag_of_words)
+				f2 = wsd.get_bag_of_words_feature_from_json()
 				features = wsd.concat_features(f1, f2)
 			else:
 				print 'Feature doesn\'t exist!'

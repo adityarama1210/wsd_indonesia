@@ -1,0 +1,150 @@
+Sentence pair #1
+Semua(1) pemangku(2) kepentingan(3) harus(4) berperan(5) dalam(6) upaya(7) ini(8) termasuk(9) pemda(10)
+NULL ({ 6 7 8 }) All ({ 1 }) stakeholders ({ 2 3 }) including ({ 9 }) the ({ 10 }) regional ({ 10 }) governments ({ 10 }) should ({ 4 }) play ({ }) their ({ }) role ({ 5 })
+Sentence pair #2
+Kita(1) tahu(2) bahwa(3) hutan(4) merupakan(5) alat(6) penyerap(7) karbon(8) dioksida(9) biang(10) pemanasan(11) global(12) terbesar(13) yang(14) menjadi(15) harapan(16) dunia(17) untuk(18) mengatasi(19) perubahan(20) iklim(21)
+NULL ({ 6 14 }) We ({ 1 }) know ({ 2 }) that ({ 3 }) forest ({ 4 }) is ({ 5 }) a ({ }) carbon ({ 8 }) dioxide ({ 9 }) sink ({ 7 }) the ({ }) major ({ 13 }) problem ({ 10 }) of ({ }) global ({ 12 }) warming ({ 11 }) and ({ }) forest ({ }) becomes ({ 15 }) the ({ }) world's ({ 17 }) expectation ({ 16 }) to ({ 18 }) overcome ({ 19 }) climate ({ 21 }) change ({ 20 })
+Sentence pair #3
+Bulan(1) Mei(2) perusahaan(3) tersebut(4) mengkonsolidasikan(5) grup(6) Aerospace(7) dan(8) Electronics;(9) grup(10) Defence(11) and(12) Space(13) yang(14) baru(15) akan(16) mencakup(17) divisi(18) Aerospace(19) dan(20) Electronics(21) serta(22) Advanced(23) Systems(24) keduanya(25) berbasis(26) di(27) daerah(28) Seattle;(29) Boeing(30) Helicopters(31) di(32) Philadelphia;(33) Boeing(34) Military(35) Airplanes(36) di(37) Wichita(38) Kan.(39) dan(40) ArgoSystems(41) di(42) Sunnyvale(43) Calif(44)
+NULL ({ }) In ({ }) May ({ 2 }) the ({ 4 }) company ({ 3 }) consolidated ({ 5 }) its ({ }) Aerospace ({ 7 }) and ({ 8 }) Electronics ({ 9 }) groups; ({ 6 }) the ({ }) new ({ 15 }) Defense ({ 11 }) and ({ 12 }) Space ({ 13 }) Group ({ 10 }) will ({ 16 }) contain ({ 17 }) the ({ }) Aerospace ({ 19 }) and ({ 20 }) Electronics ({ 21 }) division ({ 18 }) and ({ 22 }) Advanced ({ 23 }) Systems ({ 24 }) both ({ 25 }) based ({ 26 }) in ({ 27 }) the ({ }) Seattle ({ 29 }) area; ({ 28 }) Boeing ({ 30 }) Helicopters ({ 31 }) in ({ 32 }) Philadelphia; ({ 33 }) Boeing ({ 34 }) Military ({ 35 }) Airplanes ({ 36 }) in ({ 37 }) Wichita ({ 38 }) Kan. ({ 39 }) and ({ 40 }) ArgoSystems ({ 41 }) in ({ 42 }) Sunnyvale ({ 43 }) Calif ({ 44 })
+Sentence pair #4
+Badannya(1) dibuat(2) dari(3) plastik(4) keras(5) atau(6) besi(7) lalu(8) badannya(9) diisi(10) serpihan(11) tajam(12) kawat(13) bola-bola(14) besi(15) atau(16) badan(17) luarnya(18) sendiri(19) pun(20) bisa(21) bekerja(22) sebagai(23) serpihan(24)
+NULL ({ 9 12 }) The ({ }) shell ({ 1 }) is ({ }) made ({ 2 }) of ({ 3 }) hard ({ 5 }) plastic ({ 4 }) or ({ 6 }) iron ({ 7 }) which ({ }) is ({ }) then ({ 8 }) filled ({ 10 }) with ({ }) hard ({ }) splinters ({ 11 }) wires ({ 13 }) iron ({ 15 }) balls ({ 14 }) or ({ 16 }) even ({ 20 }) the ({ }) outer ({ 18 }) shell ({ 17 }) itself ({ 19 }) can ({ 21 }) serve ({ 22 }) as ({ 23 }) sharpnels ({ 24 })
+Sentence pair #5
+Masih(1) ada(2) banyak(3) waktu(4) dan(5) saya(6) akan(7) belajar(8) dari(9) seluruh(10) pengalaman(11) yang(12) pernah(13) saya(14) lalui(15)
+NULL ({ 1 12 13 14 15 }) I ({ }) believe ({ }) that ({ }) there ({ 2 }) are ({ 2 }) many ({ 3 }) more ({ }) years ({ 4 }) to ({ }) go ({ }) and ({ 5 }) I'm ({ 6 }) going ({ 7 }) to ({ 7 }) learn ({ 8 }) from ({ 9 }) all ({ 10 }) those ({ }) experiences ({ 11 }) within ({ }) those ({ }) years ({ })
+Sentence pair #6
+Dengan(1) cara(2) inilah(3) gangguan(4) dapat(5) dicegah(6) sedini(7) mungkin(8) sehingga(9) tidak(10) pernah(11) berlanjut(12) lagi(13)
+NULL ({ 1 5  8 12 13 }) This ({ 3 }) way ({ 2 }) confusion ({ 4 }) is ({ }) avoided ({ 6 }) early ({ 7 }) and ({ }) it ({ }) therefore ({ 9 }) never ({ 10 11 }) reaches ({ }) any ({ }) further ({ })
+Sentence pair #7
+Sekitar(1) 300(2) pendukungnya(3) dari(4) partai(5) Fretilin(6) berunjuk(7) rasa(8) di(9) depan(10) pengadilan(11) Dili(12) untuk(13) menunjukkan(14) simpati(15) mereka(16) terhadap(17) mantan(18) menteri(19) dalam(20) negeri(21) Timor(22) Leste(23) itu(24)
+NULL ({ 16 20 21 22 23 24 }) Some ({ 1 }) 300 ({ 2 }) of ({ }) his ({ 3 }) supporters ({ 3 }) from ({ 4 }) the ({ }) ruling ({ }) Fretilin ({ 6 }) party ({ 5 }) rallied ({ 7 8 }) in ({ 9 10 }) front ({ 9 10 }) of ({ 9 10 }) the ({ }) Dili ({ 12 }) Appeal ({ }) Court ({ 11 }) in ({ 13 14 }) a ({ 13 14 }) show ({ 13 14 }) of ({ 13 14 }) support ({ 15 }) for ({ 17 }) the ({ }) former ({ 18 }) minister ({ 19 }) before ({ }) the ({ }) hearing ({ }) even ({ }) started ({ })
+Sentence pair #8
+Seorang(1) jenderal(2) Amerika(3) Serikat(4) baru(5) Sabtu(6) mengambil(7) alih(8) komando(9) atas(10) pasukan(11) militer(12) Amerika(13) di(14) Irak(15) hanya(16) beberapa(17) hari(18) setelah(19) suatu(20) serangan(21) mulai(22) digencarkan(23) di(24) Baghdad(25) yang(26) ditujukan(27) untuk(28) menghentikan(29) negara(30) itu(31) jatuh(32) ke(33) lembah(34) perang(35) sipil(36)
+NULL ({ 8 23 31 34 }) A ({ 1 }) new ({ 5 }) U.S. ({ 3 4 }) general ({ 2 }) took ({ 7 }) command ({ 9 }) of ({ 10 }) the ({ }) American ({ 11 13 }) military ({ 12 }) in ({ 14 }) Iraq ({ 15 }) on ({ }) Saturday ({ 6 }) just ({ 16 }) days ({ 17 18 }) after ({ 19 }) an ({ 20 }) offensive ({ 21 }) began ({ 22 }) in ({ 24 }) Baghdad ({ 25 }) that ({ 26 }) aims ({ 27 }) to ({ 28 }) halt ({ 29 }) the ({ }) country's ({ 30 }) slide ({ 32 }) into ({ 33 }) civil ({ 36 }) war ({35 })
+Sentence pair #9
+Ketika(1) saya(2) sedang(3) punya(4) niat(5) baik(6) saya(7) akan(8) menggulung(9) lengan(10) baju(11) mencuci(12) peralatan(13) makan(14) dalam(15) mesin(16) pencuci(17) piring(18) dan(19) menyikat(20) semua(21) periuk(22) dan(23) panci(24) semuanya(25) saya(26) lakukan(27) demi(28) sukacita(29) ketika(30) mendengar(31) ucapan(32) terima(33) kasih(34) dari(35) Martie(36) yang(37) biasanya(38) mengatakan(39) 'Wah(40) Joe(41)
+NULL ({ 4 5 8 12 13 14 15 21 26 27 30 35 39 }) When ({ 1 }) I'm ({ 2 }) on ({ 3 }) my ({ }) good ({ 6 }) behavior ({ }) I ({ 7 }) roll ({ 9 }) up ({ 9 }) my ({ }) sleeves ({ 10 11 }) load ({ }) the ({ }) dishwasher ({ 16 17 18 }) and ({ 19 }) scrub ({ 20 }) the ({ }) pots ({ 22 }) and ({ 23 }) pans ({ 24 }) all ({ 25 }) for ({ 28 }) the ({ }) joy ({ 29 }) of ({ }) hearing ({ 31 }) Martie's ({ 36 }) grateful ({ 33 34 }) response ({ 32 }) which ({ 37 }) is ({ }) usually ({ 38 }) something ({ }) like ({ }) 'Wow ({ 40 }) Joe ({ 41 })
+Sentence pair #10
+Para(1) ilmuwan(2) yang(3) berperan(4) serta(5) dalam(6) membangun(7) teori(8) baru(9) ini(10) termasuk(11) ahli(12) genetika(13) G.Ledyard(14) Stebbins(15) dan(16) Theodosius(17) Dobzhansky(18) ahli(19) ilmu(20) hewan(21) Ernst(22) Mayr(23) dan(24) Julian(25) Huxley(26) ahli(27) kepurbakalaan(28) George(29) Gaylord(30) Simpson(31) dan(32) Glenn(33) L.Jepsen(34) dan(35) ahli(36) genetika(37) matematis(38) Sir(39) Ronald(40) A.Fisher(41) dan(42) Sewall(43) Wright(44)
+NULL ({  }) The ({ 1 }) scientists ({ 2 }) who ({ 3 }) participated ({ 4 5 }) in ({ 6 }) establishing ({ 7 }) the ({ 10 }) new ({ 9 }) theory ({ 8 }) included ({ 11 }) the ({ }) geneticists ({ 12 13 }) G.Ledyard ({ 14 }) Stebbins ({ 15 }) and ({ 16 }) Theodosius ({ 17 }) Dobzhansky ({ 18 }) the ({ }) zoologists ({ 19 20 21 }) Ernst ({ 22 }) Mayr ({ 23 }) and ({ 24 }) Julian ({ 25 }) Huxley ({ 26 }) the ({ }) paleontologists ({ 27 28 }) George ({ 29 }) Gaylord ({ 30 }) Simpson ({ 31 }) and ({ 32 }) Glenn ({ 33 }) L.Jepsen ({ 34 }) and ({ 35 }) the ({ }) mathematical ({ 38 }) geneticists ({ 36 37 }) Sir ({ 39 }) Ronald ({ 40 }) A.Fisher ({ 41 }) and ({ 42 }) Sewall ({ 43 }) Wright ({ 44 })
+Sentence pair #11
+Beberapa(1) seperti(2) Merrill(3) Lynch(4) &(5) Co.(6) yang(7) raksasa(8) sekarang(9) menolak(10) untuk(11) melakukan(12) indeks(13) perdagangan(14) arbitrase(15) untuk(16) kliennya(17)
+NULL ({ 7 }) A ({ }) few ({ 1 }) such ({ 2 }) as ({ 2 }) giant ({ 8 }) Merrill ({ 3 }) Lynch ({ 4 }) & ({ 5 }) Co. ({ 6 }) now ({ 9 }) refuse ({ 10 }) even ({  }) to ({ 11 }) do ({ 12 }) index ({ 13 }) arbitrage ({ 15 }) trades ({ 14 }) for ({ 16 }) clients ({ 17 })
+Sentence pair #12
+Bagi(1) tim(2) Ronaldo(3) Koeman(4) Valencia(5) suatu(6) kekalahan(7) berarti(8) mereka(9) sekarang(10) sudah(11) mencapai(12) delapan(13) pertandingan(14) tanpa(15) kemenangan(16) dan(17) hanya(18) memperoleh(19) tiga(20) poin(21) dari(22) kemungkinan(23) 24(24)
+NULL ({ 2 6  }) For ({ 1 }) Ronaldo ({ 3 }) Koeman's ({ 4 }) Valencia ({ 5 }) defeat ({ 7 }) meant ({ 8 }) they ({ 9 }) have ({ 11 }) now ({ 10 }) gone ({ 12 }) eight ({ 13 }) games ({ 14 }) without ({ 15 }) a ({ }) win ({ 16 }) and ({ 17 }) have ({ }) taken ({ 19 }) just ({ 18 }) three ({ 20 }) points ({ 21 }) from ({ 22 }) a ({ }) possible ({ 23 }) 24 ({ 24 })
+Sentence pair #13
+f)(1) menerapkan(2) pendekatan(3) pengembangan(4) kapasitas(5) yang(6) dianut(7) AIPJ(8) seperti(9) dijelaskan(10) di(11) bagian(12) 3(13) (bila(14) memang(15) sesuai);(16)
+NULL ({ 6 7 14 15 }) f) ({ 1 }) applies ({ 2 }) AIPJ’s ({ 8 }) approach ({ 3 }) to ({ }) capacity ({ 5 }) development ({ 4 }) as ({ 9 }) described ({ 10 }) in ({ 11 }) Part ({ 12 }) 3 ({ 13 }) (where ({ }) appropriate); ({ 16 })
+Sentence pair #14
+Kalau(1) ternak(2) di(3) bawa(4) keluar(5) daerah(6) maka(7) pedagang(8) dikenakan(9) retribusi(10) sebesar(11) Rp50.000/ekor(12)
+NULL ({ 7 11 }) If ({ 1 }) livestock ({ 2 }) are ({ }) transported ({ 3 4 }) out ({ 5 }) of ({ }) the ({ }) region ({ 6 }) the ({ }) trader ({ 8 }) is ({ }) subject ({ 9 }) to ({ }) a ({ }) levy ({ 10 }) of ({ }) Rp50000 ({ 12 }) per ({ 12 }) head ({ }) of ({ }) cattle ({ })
+Sentence pair #15
+desa-desa(1) di(2) Konawe(3) Selatan(4) atau(5) Bombana(6) baru(7) mengenal(8) pertanian(9) sawah(10) pada(11) akhir(12) 1970-an(13) ketika(14) transmigrasi(15) begitu(16) marak(17)
+NULL ({ 7 9 11 16 }) The ({ }) villages ({ 1 }) in ({ 2 }) Konawe ({ 3 }) Selatan ({ 4 }) or ({ 5 }) Bombana ({ 6 }) had ({  }) just ({ }) been ({ }) introduced ({ 8 }) to ({ }) rice ({ 10 }) field ({ 10 }) agriculture ({ 9 }) in ({ 11 }) the ({ }) late ({ 12 }) 1970s ({ 13 }) when ({ 14 }) transmigration ({ 15 }) was ({ }) at ({ }) its ({ }) peak ({ 17 })
+Sentence pair #16
+Kami(1) amat(2) beruntung(3) karena(4) mereka(5) hanya(6) mendapat(7) luka(8) kecil(9) dan(10) mereka(11) tidak(12) panik(13) kata(14) pelatih(15) tim(16) Philippe(17) Bergeroo(18) dalam(19) wawancara(20) dengan(21) RTL(22)
+NULL ({ 4 5 6 7 8 9 10 11 19 20 21 }) We ({ 1 }) were ({ }) very ({ 2 }) lucky ({ 3 }) the ({ }) team's ({ 16 }) coach ({ 15 }) Philippe ({ 17 }) Bergeroo ({ 18 }) told ({ 14 }) French ({ }) broadcaster ({ }) RTL ({ 22 }) as ({ }) he ({ }) saluted ({ }) the ({ }) squad ({ }) for ({ }) not ({ 12 }) panicking ({ 13 })
+Sentence pair #17
+Program(1) ini(2) diharapkan(3) dapat(4) merespon(5) dan(6) mengembangkan(7) peluang-peluang(8) kerja(9) sama(10) di(11) bidang(12) tersebut(13)
+NULL ({ 4 }) The ({ 2 }) program ({ 1 }) will ({ }) be ({ }) expected ({ 3 }) to ({ }) respond ({ 5 }) to ({ }) and ({ 6 }) build ({ 7 }) on ({ }) opportunities ({ 8 }) for ({ }) engagement ({ 9 10 }) in ({ 11 }) these ({ 13 }) areas ({ 12 })
+Sentence pair #18
+Pemain(1) bertahan(2) Inggris(3) Micah(4) Richards(5) menjalani(6) operasi(7) kaki(8) kanan(9) demikian(10) diungkapkan(11) pengurus(12) klub(13) Liga(14) Utama(15) Manchester(16) City(17) Rabu(18)
+NULL ({ 6 8 10 12  }) England ({ 3 }) defender ({ 1 2 }) Micah ({ 4 }) Richards ({ 5 }) has ({ }) had ({ }) an ({ }) operation ({ 7 }) on ({ }) his ({ }) right ({ 9 }) knee ({ }) his ({ }) Premier ({ 15 }) League ({ 14 }) club ({ 13 }) Manchester ({ 16 }) City ({ 17 }) said ({ 11 }) on ({ }) Wednesday ({ 18 })
+Sentence pair #19
+Badan(1) Pemberdayaan(2) Masyarakat(3) Desa(4) (BPMD)(5) provinsi(6) juga(7) pernah(8) menjadi(9) pengelola(10) penyaluran(11) kredit(12) mikro(13) yang(14) dikenal(15) dengan(16) kredit(17) Usaha(18) Ekonomi(19) Desa-Simpan(20) Pinjam(21) (UED-SP)(22) namun(23) saat(24) ini(25) kewenangannya(26) sudah(27) diserahkan(28) kepada(29) BPMD(30) di(31) tingkat(32) kabupaten(33)
+NULL ({ 7 8 9 17 24 25 31 }) The ({ }) provincial-level ({ 6 }) BPMD ({ 1 2 3 4 5 }) previously ({ }) managed ({ 10 }) the ({ }) channelling ({ 11 }) of ({ }) microcredit ({ 12 13 }) which ({ 14 }) was ({ }) referred ({ 15 }) to ({ 16 }) as ({ }) UED-SP ({ 18 19 20 21 22 }) but ({ 23 }) the ({ }) authority ({ 26 }) has ({ 27 }) now ({ }) been ({ }) transferred ({ 28 }) to ({ 29 }) the ({ }) kabupaten-level ({ 32 33 }) BPMD ({ 30 })
+Sentence pair #20
+Bagaimana(1) jika(2) kamu(3) tidak(4) mendapatkan(5) itik(6) yang(7) berbaris(8) itu?(9) 
+NULL ({ 1 7 9 }) What ({ }) if ({ 2 }) you ({ 3 }) don't ({ 4 }) get ({ 5 }) your ({ }) ducks ({ 6 }) in ({ }) a ({ }) row? ({ 8 })
+Sentence pair #21
+Marilah(1) kepada-Ku(2) semua(3) yang(4) letih(5) lesu(6) dan(7) berbeban(8) berat(9) Aku(10) akan(11) memberi(12) kelegaan(13) kepadamu(14)
+NULL ({ 10 11 12 13 14 }) 'Come ({ 1 }) to ({ 2 }) Me ({ 2 }) all ({ 3 }) you ({ }) who ({ 4 }) labor ({ 5 6 }) and ({ 7 }) are ({ }) heavy ({ 9 }) laden' ({ 8 })
+Sentence pair #22
+Pemerintah(1) lokal(2) tertarik(3) menggunakan(4) sistem(5) pengumpulan(6) data(7) ini(8) di(9) kota(10) mereka;(11) Pekalongan(12) menjadi(13) yang(14) pertama(15) dari(16) seluruh(17) kabupaten/kota(18) di(19) Indonesia(20) yang(21) secara(22) resmi(23) menggunakan(24) SPKOM(25)
+NULL ({ 7 8 12 14 21 25 }) The ({ }) local ({ 2 }) government ({ 1 }) was ({ }) interested ({ 3 }) in ({ }) implementing ({ 4 }) the ({ }) data ({ 7 }) collection ({ 6 }) system ({ 5 }) in ({ 9 }) their ({ 11 }) city ({ 10 }) and ({ }) it ({ }) became ({ 13 }) the ({ }) first ({ 15 }) of ({ 16 }) all ({ 17 }) the ({ }) kabupaten/kota ({ 18 }) in ({ 19 }) Indonesia ({ 20 }) to ({ }) officially ({ 22 23 }) implement ({ 24 }) the ({ }) system ({ })
+Sentence pair #23
+Satu(1) sumber(2) keamanan(3) Israel(4) mengatakan(5) Kedua(6) orang(7) tersebut(8) meninggal(9) seketika(10) di(11) dalam(12) mobil(13)
+NULL ({ 7 }) An ({ 1 }) Israeli ({ 4 }) security ({ 3 }) source ({ 2 }) said ({ 5 }) the ({ 8 }) two ({ 6 }) were ({ }) instantly ({ 10 }) killed ({ 9 }) in ({ 11 12 }) a ({ }) car ({ 13 })
+Sentence pair #24
+Pada(1) umumnya(2) sekolah(3) mengalami(4) kesulitan(5) dalam(6) penyusunan(7) laporan(8) pertanggungjawaban(9) penggunaan(10) dana(11) karena(12) keterbatasan(13) kemampuan(14) dan(15) fasilitas(16) serta(17) adanya(18) upaya(19) untuk(20) mengatur(21) agar(22) laporan(23) sesuai(24) dengan(25) ketentuan(26) penggunaan(27) dana(28) dalam(29) juklak(30)
+NULL ({ 17 18 19 20 25 26 29 }) In ({ 1 }) general ({ 2 }) schools ({ 3 }) experienced ({ 4 }) difficulty ({ 5 }) in ({ 6 }) preparing ({ 7 }) the ({ }) financial ({ 11 }) accountability ({ 9 10 }) report ({ 8 }) because ({ 12 }) of ({ }) their ({ }) limited ({ 13 }) capabilities ({ 14 }) and ({ 15 }) facilities ({ 16 }) as ({ }) well ({ }) as ({ }) the ({ }) intricacy ({ }) in ({ }) adjusting ({ 21 }) financial ({ }) statements ({ 23 }) so ({ 22 }) that ({ 22 }) the ({ }) type ({ }) of ({ }) expenditure ({ 27 28 }) can ({ }) be ({ }) in ({ }) accordance ({ 24 }) with ({ }) the ({ }) operational ({ 30 }) guidelines ({ 30 })
+Sentence pair #25
+Prosedur(1) pengurusan(2) izin(3) bisa(4) berbeda(5) antara(6) pengolah(7) sopi(8) di(9) satu(10) desa(11) dengan(12) desa(13) lainnya(14)
+NULL ({ 2 4 7 8 9 10 12 13 14 }) The ({ }) procedure ({ 1 }) to ({ }) obtain ({ }) a ({ }) permit ({ 3 }) differs ({ 5 }) between ({ 6 }) villages ({ 11 })
+Sentence pair #26
+Hal(1) ini(2) dilakukan(3) dengan(4) cara(5) komputer(6) tersebut(7) beralih(8) dengan(9) cepat(10) antara(11) pelaksanaan(12) satu(13) program(14) ke(15) pelaksanaan(16) program(17) berikutnya(18) secara(19) berurutan.(20)
+NULL ({ 1 3 5 13 15 16 17 18 19 }) This ({ 2 }) is ({ }) achieved ({ }) by ({ 4 }) having ({ }) the ({ 7 }) computer ({ 6 }) switch ({ 8 }) rapidly ({ 9 10 }) between ({ 11 }) running ({ 12 }) each ({ }) program ({ 14 }) in ({ 20 }) turn ({ 20 })
+Sentence pair #27
+singapura(1) juga(2) menawarkan(3) anda(4) berbagai(5) hidangan(6) internasional(7) –(8) mulai(9) dari(10) makanan(11) thai(12) korea(13) vietnam(14) sampai(15) mongolia(16) 
+NULL ({ 5 9 }) Singapore ({ 1 }) also ({ 2 }) offers ({ 3 }) you ({ 4 }) a ({ }) wide ({ }) range ({ }) of ({ }) international ({ 7 }) cuisines ({ 6 }) – ({ 8 }) from ({ 10 }) thai ({ 12 }) korean ({ 13 }) vietnamese ({ 14 }) to ({ 15 }) mongolian ({ 16 }) food ({ 11 })
+Sentence pair #28
+tapi(1) anti(2) aborsi(3) menolak(4) penelitian(5) seperti(6) itu(7) karena(8) mereka(9) khawatir(10) perkembangan(11) terapi(12) yang(13) menggunakan(14) jaringan(15) fetus(16) dapat(17) menaikkan(18) tingkat(19) aborsi(20)
+NULL ({ 14 19 }) But ({ 1 }) anti-abortionists ({ 2 3 }) oppose ({ 4 }) such ({ 6 7 }) research ({ 5 }) because ({ 8 }) they ({ 9 }) worry ({ 10 }) that ({ }) the ({ }) development ({ 11 }) of ({ }) therapies ({ 12 }) using ({ 13 }) fetal-tissue ({ 15 16 }) transplants ({ }) could ({ 17 }) lead ({ }) to ({ }) an ({ }) increase ({ 18 }) in ({ }) abortions ({ 20 })
+Sentence pair #29
+Kompleks(1) ini(2) terletak(3) di(4) Batangas(5) sekitar(6) 70(7) mil(8) sebelah(9) selatan(10) Manila(11)
+NULL ({ 9 }) The ({ 2 }) complex ({ 1 }) is ({ }) to ({ }) be ({ }) located ({ 3 }) in ({ 4 }) Batangas ({ 5 }) about ({ 6 }) 70 ({ 7 }) miles ({ 8 }) south ({ 10 }) of ({ }) Manila ({ 11 })
+Sentence pair #30
+2.(1) Mengidentifikasi(2) bentuk(3) keuangan(4) mikro(5) yang(6) belum(7) tersedia(8) bagi(9) golongan(10) miskin(11) di(12) NTT(13)
+NULL ({ }) 2. ({ 1 }) Identify ({ 2 }) the ({ }) types ({ }) of ({ }) microfinance ({ 4 5 }) services ({ }) that ({ 6 }) are ({ }) not ({ 7 }) yet ({ 7 }) available ({ 8 }) for ({ 9 }) the ({ 10 11 }) poor ({ 10 11 }) in ({ 12 }) NTT ({ 13 })
+Sentence pair #31
+Investor(1) dari(2) U.S.(3) Memories(4) mengatakan(5) akan(6) memulai(7) kunjungan(8) selama(9) minggu-minggu(10) depan(11) ke(12) lokasi(13) di(14) Austin(15) Texas;(16) Colorado(17) Springs(18) Colo.;(19) Middletown(20) N.Y.;(21) dan(22) Phoenix(23) Ariz(24)
+NULL ({ 1 2 }) U.S. ({ 3 }) Memories ({ 4 }) said ({ 5 }) it ({ }) will ({ 6 }) begin ({ 7 }) visits ({ 8 }) during ({ 9 }) the ({ }) next ({ 11 }) several ({ 10 }) weeks ({ 10 }) to ({ 12 }) sites ({ 13 }) in ({ 14 }) Austin ({ 15 }) Texas; ({ 16 }) Colorado ({ 17 }) Springs ({ 18 }) Colo.; ({ 19 }) Middletown ({ 20 }) N.Y.; ({ 21 }) and ({ 22 }) Phoenix ({ 23 }) Ariz ({ 24 })
+Sentence pair #32
+Departemen(1) mengatakan(2) Jihad(3) al-Bina(4) menerima(5) dana(6) langsung(7) dari(8) Iran(9) dan(10) hal(11) itu(12) diawasi(13) oleh(14) Majelis(15) Shura(16) Hizbullah(17)
+NULL ({ 11 12 }) The ({ }) department ({ 1 }) said ({ 2 }) Jihad ({ 3 }) al-Bina ({ 4 }) receives ({ 5 }) direct ({ 7 }) funding ({ 6 }) from ({ 8 }) Iran ({ 9 }) and ({ 10 }) is ({ }) overseen ({ 13 }) by ({ 14 }) Hezbollah's ({ 17 }) governing ({ }) Shura ({ 16 }) Council ({ 15 })
+Sentence pair #33
+Hal(1) ini(2) mungkin(3) akibat(4) hubungan(5) antara(6) rumah(7) sakit(8) dan(9) Bapel(10) lebih(11) kuat(12) karena(13) dokter(14) di(15) rumah(16) sakit(17) juga(18) bertugas(19) di(20) Bapel(21)
+NULL ({ 1 13 }) This ({ 2 }) may ({ 3 }) be ({ 3 }) because ({ 4 }) the ({ }) ties ({ 5 }) between ({ 6 }) the ({ }) hospital ({ 7 8 }) and ({ 9 }) the ({ }) Bapel ({ 10 }) are ({ }) stronger ({ 11 12 }) as ({ }) doctors ({ 14 }) in ({ 15 }) the ({ }) hospital ({ 16 17 }) are ({ }) also ({ 18 }) employed ({ 19 }) in ({ 20 }) the ({ }) Bapel ({ 21 })
+Sentence pair #34
+Ada(1) penyerahan(2) yang(3) dilakukan(4) dari(5) rumah(6) ke(7) rumah(8) ada(9) juga(10) yang(11) secara(12) bersamaan(13) dengan(14) mengumpulkan(15) penerima(16) di(17) lokasi(18) tertentu(19)
+NULL ({ 4 5 10 11 }) There ({ 1 }) were ({ }) deliveries ({ 2 }) that ({ 3 }) were ({ }) made ({ }) door-to-door ({ 6 7 8 }) and ({ }) some ({ 9 }) were ({ }) done ({ }) collectively ({ 12 13 }) by ({ 14 }) gathering ({ 15 }) recipients ({ 16 }) in ({ 17 }) a ({ }) particular ({ 19 }) location ({ 18 })
+Sentence pair #35
+Kami(1) melakukan(2) beberapa(3) exercise(4) jika(5) harga(6) minyak(7) mencapai(8) 135(9) dan(10) 150(11) dolar(12) AS(13) per(14) barel(15) untuk(16) melihat(17) bagaimana(18) postur(19) APBN(20) bergerak(21) kata(22) Menteri(23) Keuangan(24) Sri(25) Mulyani(26) Indrawati(27) dalam(28) rapat(29) kerja(30) Komisi(31) XI(32) DPR(33) di(34) Jakarta(35) Rabu(36) malam(37)
+NULL ({ 3 4 7 12 13 16 17 18 19 20 21 24 25 26 27 28 29 30 32 34 25 }) We ({ 1 }) have ({ }) done ({ 2 }) a ({ }) simulation ({ }) to ({ }) see ({ }) the ({ }) position ({ }) of ({ }) the ({ }) state ({ }) budget ({ }) if ({ 5 }) the ({ }) crude ({ }) price ({ 6 }) in ({ }) the ({ }) world ({ }) market ({ }) reaches ({ 8 }) US$135 ({ 9 }) and ({ 10 }) US$150 ({ 11 }) per ({ 14 }) barrel ({ 15 }) the ({ }) minister ({ 23 }) told ({ 22 }) the ({ }) Financial ({ }) Affairs ({ }) Commission ({ 31 }) of ({ }) the ({ }) House ({ 33 }) of ({ 33 }) Representatives ({ 33 }) DPR ({ 33 }) on ({ }) Wednesday ({ 36 }) night ({ 37 })
+Sentence pair #36
+Memperhatikan(1) kepemilikan(2) tanah(3) di(4) hampir(5) semua(6) wilayah(7) perdesaan(8) belakangan(9) ini(10) luas(11) setiap(12) bidang(13) tanah(14) sepertinya(15) relatif(16) kecil(17)
+NULL ({ 1 11 13 14 }) Given ({ }) the ({ }) fragmentation ({ }) of ({ }) holdings ({ 2 3 }) that ({ }) has ({ }) occurred ({ }) in ({ 4 }) most ({ 5 6 }) rural ({ 8 }) areas ({ 7 }) in ({ }) recent ({ 9 10 }) years ({ }) each ({ 12 }) parcel ({ }) is ({ }) likely ({ 15 }) to ({ }) be ({ }) relatively ({ 16 }) small ({ 17 })
+Sentence pair #37
+Ronaldo(1) pencetak(2) gol(3) terbanyak(4) di(5) negara(6) tersebut(7) mencetak(8) gol(9) bertepatan(10) dengan(11) berakhirnya(12) pertandingan(13) untuk(14) menambah(15) pengumpulan(16) golnya(17) pada(18) liga(19) menjadi(20) 17(21)
+NULL ({ 6 7 8 9 10 11 13 15 18 20 }) Ronaldo ({ 1 }) the ({ }) country's ({ 5 }) top ({ 4 }) scorer ({ 2 3 }) broke ({ }) away ({ }) in ({ }) stoppage ({ 12 }) time ({ }) to ({ 14 }) take ({ }) his ({ }) league ({ 19 }) tally ({ 16 }) to ({ }) 17 ({ 21 })
+Sentence pair #38
+Setelah(1) dilarikan(2) ke(3) rumah(4) sakit(5) di(6) Riems(7) pihak(8) dari(9) klub(10) mengatakan(11) bahwa(12) kondisi(13) Randrianantoanina(14) membaik(15)
+NULL ({ 8 9 12 }) After ({ 1 }) being ({ }) transferred ({ 2 }) to ({ 3 }) hospital ({ 4 5 }) in ({ 6 }) Riems ({ 7 }) the ({ }) club ({ 10 }) said ({ 11 }) the ({ }) condition ({ 13 }) of ({ }) Randrianantoanina ({ 14 }) had ({ }) improved ({ 15 })
+Sentence pair #39
+Indikator(1) itu(2) bisa(3) dilihat(4) dari(5) kerang(6) yang(7) mampu(8) menyimpan(9) logam(10) berat(11) dalam(12) jumlah(13) tinggi(14)
+NULL ({  }) The ({ 2 }) indicator ({ 1 }) can ({ 3 }) be ({ }) seen ({ 4 }) from ({ 5 }) shells ({ 6 }) that ({ 7 }) can ({ 8 }) store ({ 9 }) heavy ({ 11 }) metals ({ 10 }) in ({ 12 }) high ({ 14 }) concentration ({ 13 })
+Sentence pair #40
+Peran(1) pemerintah(2) dalam(3) penyediaan(4) berbagai(5) fasilitas(6) sekolah(7) setara(8) SD(9) dan(10) SMP(11) masih(12) sangat(13) dominan;(14) namun(15) demikian(16) di(17) beberapa(18) daerah(19) peran(20) pihak(21) swasta(22) juga(23) tidak(24) kalah(25) penting(26) dalam(27) memperluas(28) cakupan(29) pelayanan(30) pendidikan(31) dasar(32)
+NULL ({ 5 8 13 16 21 }) The ({ }) government ({ 2 }) still ({ 12 }) has ({ }) a ({ }) dominant ({ 14 }) role ({ 1 }) in ({ 3 }) the ({ }) provision ({ 4 }) of ({ }) school ({ 7 }) facilities ({ 6 }) at ({ }) the ({ }) primary ({ 9 }) and ({ 10 }) junior ({ 11 }) high ({ 11 }) schools; ({ 11 }) however ({ 15 }) in ({ 17 }) several ({ 18 }) regions ({ 19 }) the ({ }) role ({ 20 }) of ({ }) private ({ 22 }) groups ({ }) is ({ }) also ({ 23 }) no ({ 24 }) less ({ 25 }) important ({ 26 }) in ({ 27 }) broadening ({ 28 }) the ({ }) scope ({ 29 }) of ({ }) basic ({ 32 }) education ({ 31 }) services ({ 30 })
+Sentence pair #41
+Pria(1) yang(2) tadinya(3) ketakutan(4) itu(5) menyadari(6) bahwa(7) baik(8) ketika(9) hidup(10) maupun(11) mati(12) dan(13) bahkan(14) ketika(15) tidur(16) 'lengan-lengan(17) kekal'(18)
+NULL ({ 2 3 8 11 }) The ({ 5 }) once-fearful ({ 4 }) man ({ 1 }) realized ({ 6 }) that ({ 7 }) in ({ 9 }) life ({ 10 }) and ({ }) in ({ }) death ({ 12 }) and ({ 13 }) even ({ 14 }) in ({ 15 }) sleep ({ 16 }) the ({ }) 'everlasting ({ 18 }) arms' ({ 17 })
+Sentence pair #42
+Direktur(1) Kemitraan(2) dibantu(3) oleh(4) ISP(5) akan(6) mengemban(7) tanggung(8) jawab(9) utama(10) untuk(11) tingkatan(12) M&E(13) ini(14) dengan(15) pengawasan(16) tambahan(17) dari(18) AusAID(19) bila(20) perlu(21) (hanya(22) bila(23) ada(24) pengecualian)(25)
+NULL ({ 2 4 20 23 24 }) The ({ }) Program ({ }) Director ({ 1 }) with ({ }) assistance ({ 3 }) from ({ }) the ({ }) ISP ({ 5 }) will ({ 6 }) carry ({ 7 }) primary ({ 10 }) responsibility ({ 8 9 }) for ({ 11 }) this ({ 14 }) level ({ 12 }) of ({ }) M&E ({ 13 }) with ({ 15 }) additional ({ 17 }) oversight ({ 16 }) by ({ 18 }) AusAID ({ 19 }) as ({ }) necessary ({ 21 }) (on ({ }) an ({ }) exception ({ 25 }) basis ({ }) only) ({ 22 })
+Sentence pair #43
+Kemajuan(1) pada(2) hasil(3) ini(4) dalam(5) jangka(6) panjang(7) akan(8) diukur(9) terutama(10) melalui(11) jumlah(12) dan(13) keragaman(14) individu(15) yang(16) lebih(17) memilih(18) menggunakan(19) pengadilan(20) untuk(21) menyelesaikan(22) sengketa(23)
+NULL ({ 16 17 21 }) Progress ({ 1 }) against ({ 2 }) this ({ 4 }) outcome ({ 3 }) over ({ 5 }) the ({ }) longer ({ 7 }) term ({ 6 }) will ({ 8 }) be ({ }) measured ({ 9 }) primarily ({ 10 }) by ({ 11 }) the ({ }) number ({ 12 }) and ({ 13 }) diversity ({ 14 }) of ({ }) individuals ({ 15 }) choosing ({ 18 }) to ({ }) make ({ 19 }) use ({ 19 }) of ({ 19 }) court-based ({ 20 }) dispute ({ 23 }) resolution ({ 22 })
+Sentence pair #44
+Melalui(1) kegiatan(2) ini(3) hampir(4) seluruh(5) anggota(6) PEKKA(7) dapat(8) mengembangkan(9) usaha(10) kecil(11) untuk(12) membiayai(13) kebutuhan(14) hidup(15) keluarga(16) mereka(17)
+NULL ({ 1 }) With ({ }) this ({ 3 }) activity ({ 2 }) almost ({ 4 }) all ({ 5 }) PEKKA ({ 7 }) members ({ 6 }) can ({ 8 }) develop ({ 9 }) small ({ 11 }) businesses ({ 10 }) to ({ 12 }) pay ({ 13 }) for ({ }) their ({ 17 }) family's ({ 16 }) living ({ 15 }) needs ({ 14 })
+Sentence pair #45
+Kurangnya(1) konsistensi(2) dalam(3) peraturan(4) perundang-undangan(5) dan(6) yurisprudensi(7)
+NULL ({ 4 }) Lack ({ 1 }) of ({ 1 }) consistency ({ 2 }) in ({ 3 }) legislation ({ 5 }) and ({ 6 }) case ({ 7 }) law ({ 7 })
+Sentence pair #46
+Terpana(1) Mr.(2) Breeden(3) menatap(4) komputer(5) pemantau(6) pasarnya(7) yang(8) kini(9) ada(10) di(11) samping(12) mejanya(13)
+NULL ({ 4 9 10 }) Stunned ({ 1 }) Mr. ({ 2 }) Breeden ({ 3 }) turned ({ }) to ({ }) his ({ 6 7 }) market-monitoring ({ 6 7 }) computer ({ 5 }) which ({ 8 }) by ({ }) then ({ }) was ({ }) next ({ 11 12 }) to ({ 11 12 }) his ({ 13 }) desk ({ 13 })
+Sentence pair #47
+Berikut(1) ini(2) berita(3) singkat(4) sepak(5) bola(6) dari(7) berbagai(8) tempat(9)
+NULL ({ 1 2 8 9 }) Soccer ({ 5 6 }) news ({ 3 }) in ({ }) brief ({ 4 }) from ({ 7 }) around ({ }) the ({ }) world: ({ })
+Sentence pair #48
+Dia(1) mengatakan(2) perusahaan(3) sedang(4) mengeksperimenkan(5) teknik(6) itu(7) pada(8) alfalfa(9) dan(10) berencana(11) untuk(12) juga(13) mengikutsertakan(14) katun(15) dan(16) jagung(17) di(18) antara(19) tanaman(20) lainnya(21)
+NULL ({ 13 }) He ({ 1 }) said ({ 2 }) the ({ }) company ({ 3 }) is ({ 4 }) experimenting ({ 5 }) with ({ }) the ({ 7 }) technique ({ 6 }) on ({ 8 }) alfalfa ({ 9 }) and ({ 10 }) plans ({ 11 }) to ({ 12 }) include ({ 14 }) cotton ({ 15 }) and ({ 16 }) corn ({ 17 }) among ({ 18 19 }) other ({ 21 }) crops ({ 20 })
+Sentence pair #49
+"(1) Tokyu(2) merupakan(3) salah(4) satu(5) calon(6) pembeli(7) potensial(8) yang(9) mungkin(10) akan(11) mengangkat(12) tangan(13)
+NULL ({ 6 11 }) "Tokyu ({ 1 2 }) is ({ 3 }) one ({ 4 5 }) of ({ 4 5 }) the ({ }) potential ({ 8 }) buyers ({ 7 }) who ({ 9 }) might ({ 10 }) raise ({ 12 }) its ({ }) hand ({ 13 })
+Sentence pair #50
+Matematikawan(1) memecahkan(2) kode(3) Jepang(4) dan(5) membangun(6) bom-A(7) (atom)(8)
+NULL ({ }) Mathematicians ({ 1 }) broke ({ 2 }) theJapanese ({ 4 }) codes... ({ 3 }) and ({ 5 }) built ({ 6 }) the ({ }) A-bomb ({ 7 })
