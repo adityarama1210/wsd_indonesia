@@ -1,5 +1,5 @@
 # import needed library here
-import re, sys, nltk, gensim
+import re, sys, nltk, gensim, json
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from sklearn import svm, tree, dummy
 from sklearn.model_selection import cross_val_score, ShuffleSplit
@@ -401,8 +401,31 @@ def get_similar_sense_key(dict_of_sense_key, sense_key, word):
 	return (dict_of_sense_key, sense_key)
 
 
-def produce_indo_sense_tagged_corpus(indo_original_sentences, english_tagged_sentences, dictionary, a3_file):
-	dict_of_sense_key = {}
+def get_json_of_postag(f_postag):
+	f = open(f_postag, 'r')
+	json_s = {
+		'sentences': {}
+	}
+	sentence_number = 1
+	for line in f:
+		json_s['sentences'][sentence_number] = { 'words' : [] }
+		line = line.strip().rstrip(' ._Z').split(' ')
+		for token in line:
+			token = token.split('_')
+			word = token[0].lower()
+			if len(token) > 1:
+				postag = token[1]
+			else:
+				postag = ''
+			json_s['sentences'][sentence_number]['words'].append({ 'word': word, 'pos': postag, 'sense_key': '' })
+		print json_s['sentences'][sentence_number]
+		sentence_number += 1
+	f.close()
+	return json_s
+
+#def produce_indo_sense_tagged_corpus(indo_original_sentences, english_tagged_sentences, dictionary, a3_file):
+
+'''
 	for key in indo_original_sentences:
 		indo_sentence = indo_original_sentences[key]
 		en_tag_sentence = english_tagged_sentences[key]
@@ -424,8 +447,32 @@ def produce_indo_sense_tagged_corpus(indo_original_sentences, english_tagged_sen
 			else:
 				output = output + indo_word + ' '
 		print output
+	'''
 
-
+def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionary, a3_file):
+	dict_of_sense_key = {}
+	for sentence_number in json_s['sentences'].keys():
+		sentence = json_s['sentences'][sentence_number]
+		en_tag_sentence = english_tagged_sentences[sentence_number]
+		a3 = a3_file[sentence_number]
+		for index in range(len(sentence['words'])):
+			token = sentence['words'][index]
+			indo_word = token['word']
+			pos = token['pos']
+			sense_key = token['sense_key']
+			if indo_word not in dict_of_sense_key:
+				dict_of_sense_key[indo_word] = {}
+			sense_key = None
+			if indo_word in dictionary:
+				en_words = dictionary[indo_word]
+				english_word = get_en_from_a3_by_indo_word(indo_word, a3)
+				if english_word and english_word in en_words:
+					# the pair from A3 file exist in the dictionary
+					sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
+			if sense_key:
+				dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, indo_word)
+				json_s['sentences'][sentence_number]['words'][index]['pos'] = sense_key
+	return json_s
 
 
 ## end of processing
@@ -564,9 +611,8 @@ if len(sys.argv) > 1:
 
 	elif _type == "produce_tagged_corpus":
 		# python wsd.py produce_tagged_corpus
-		produce_indo_sense_tagged_corpus(indo_original_sentences, english_tagged_sentences, dictionary, a3_file)
-
-
-
+		json_s = get_json_of_postag('Resources/'+f_id_postag)
+		json_s = produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionary, a3_file)
+		print json.dumps(json_s, indent=4, separators=(',',': '))
 
 ## script end here
