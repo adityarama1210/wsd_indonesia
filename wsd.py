@@ -33,7 +33,6 @@ class EnglishTagToken:
 		return self.sense_key
 
 class WSDIndonesia:
-	'''
 	def __init__(self, stopwords, sentences, classes, target_word):
 		self.stopwords = stopwords
 		# create stemmer
@@ -46,12 +45,14 @@ class WSDIndonesia:
 			sentences[x] = self.remove_punctuation(sentences[x].lower())
 		self.sentences = sentences
 		self.classes = classes
+
 	'''
 	def __init__(self, stopwords, json_dict, classes, target_word):
 		self.stopwords = stopwords
 		self.json_dict = json_dict
 		self.classes = classes
 		self.target_word = target_word
+	'''
 
 
 	def zerolistmaker(self, n):
@@ -117,8 +118,9 @@ class WSDIndonesia:
 		for word in temp_arr.keys():
 			result_arr.append(word)
 		
-
 		# get the real features in one hot vector form
+
+		print sorted(result_arr)
 
 		x_features = []
 		for sentence_id in self.json_dict['sentences'].keys():
@@ -220,10 +222,6 @@ class WSDIndonesia:
 			x_features.append(arr)
 
 		return x_features
-
-
-
-
 
 	def remove_punctuation(self, line):
 		return re.sub('[\'\"!\,\.\(\)\?\;\:]', '', line)
@@ -560,12 +558,13 @@ def get_json_of_postag(f_postag):
 		line = line.strip().rstrip(' ._Z').split(' ')
 		for token in line:
 			token = token.split('_')
-			word = token[0].lower()
-			if len(token) > 1:
-				postag = token[1]
-			else:
-				postag = ''
-			json_s['sentences'][sentence_number]['words'].append({ 'word': word, 'pos': postag, 'sense_key': '' })
+			word = remove_punctuation(token[0].lower())
+			if word and '-rrb-' not in word and '-lrb-' not in word:
+				if len(token) > 1:
+					postag = token[1]
+				else:
+					postag = ''
+				json_s['sentences'][sentence_number]['words'].append({ 'word': word, 'pos': postag, 'sense_key': '' })
 		sentence_number += 1
 	f.close()
 	return json_s
@@ -744,36 +743,39 @@ if len(sys.argv) > 1:
 		testing_file = sys.argv[2]
 		testing_words = reading_testing_file(testing_file)
 		for word in testing_words:
-			#(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary, a3_file)
-			#wsd = WSDIndonesia(stopwords, sentences, classes, word)
-			#wsd.remove_stopword()
+			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary, a3_file)
+			wsd = WSDIndonesia(stopwords, sentences, classes, word)
+			wsd.remove_stopword()
+			'''
 			json_dict = get_json_corpus(f_json_corpus)
 			(json_dict, classes) = get_sentence_and_classes_from_json(json_dict, word)
 			wsd = WSDIndonesia(stopwords, json_dict, classes, word)
+			wsd.remove_stopword_json()
+			'''
 			if sys.argv[3] == 'f1':
 				# just bag of words
-				#bag_of_words = wsd.get_bag_of_words()
-				#features = wsd.get_features(bag_of_words)
-				features = wsd.get_bag_of_words_feature_from_json()
+				bag_of_words = wsd.get_bag_of_words()
+				features = wsd.get_features(bag_of_words)
+				#features = wsd.get_bag_of_words_feature_from_json()
 			elif sys.argv[3] == 'f2a':
 				# word embedding
-				#features = wsd.get_word_embedding_features(model)
-				features = wsd.get_word_embedding_features_from_json(model)
+				features = wsd.get_word_embedding_features(model)
+				#features = wsd.get_word_embedding_features_from_json(model)
 			elif sys.argv[3] == 'f2b':
 				# word embedding
 				features = wsd.get_word_embedding_features_full_token(model)
-				features = wsd.get_word_embedding_features_from_json(model)
+				#features = wsd.get_word_embedding_features_from_json(model)
 			elif sys.argv[3] == 'f3':
 				# pos tagging only
-				#features = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
-				features = wsd.get_pos_tag_features_from_json()
+				features = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
+				#features = wsd.get_pos_tag_features_from_json()
 			elif sys.argv[3] == 'f4':
 				# pos tagging and bag of words
-				#f1 = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
-				f1 = wsd.get_pos_tag_features_from_json()
-				#bag_of_words = wsd.get_bag_of_words()
-				#f2 = wsd.get_features(bag_of_words)
-				f2 = wsd.get_bag_of_words_feature_from_json()
+				f1 = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
+				#f1 = wsd.get_pos_tag_features_from_json()
+				bag_of_words = wsd.get_bag_of_words()
+				f2 = wsd.get_features(bag_of_words)
+				#f2 = wsd.get_bag_of_words_feature_from_json()
 				features = wsd.concat_features(f1, f2)
 			else:
 				print 'Feature doesn\'t exist!'
