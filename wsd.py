@@ -559,7 +559,7 @@ def get_json_of_postag(f_postag):
 		for token in line:
 			token = token.split('_')
 			word = remove_punctuation(token[0].lower())
-			if word and '-rrb-' not in word and '-lrb-' not in word:
+			if word and '-rrb-' not in word and '-lrb-' not in word and word != "``" and word != "''" and word != '\'' and word != '`' and '`' not in word:
 				if len(token) > 1:
 					postag = token[1]
 				else:
