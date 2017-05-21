@@ -126,6 +126,15 @@ class Sentence:
 						is_null_bracket = False
 					else:
 						(numbers_anotator, numbers_giza, match) = self.evaluate_bracket(giza, anotator)
+						'''
+						this section is for tuple comparation rather than single number comparation
+						if len(giza) > 0:
+							numbers_giza += 1
+						if len(anotator) > 0:
+							numbers_anotator += 1
+						if self.is_the_same(giza, anotator):
+							match += 1
+						'''
 					matches += match
 					total_giza += numbers_giza
 					total_anotator += numbers_anotator
