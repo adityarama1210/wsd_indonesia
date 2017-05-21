@@ -632,6 +632,8 @@ def word_in_sentence_corner(sentence, word):
 	return m != None
 
 def get_indo_sentences_and_classes(sentences, target_word, english_tagged_sentences, dictionary, a3_file):
+	dict_of_sense_key = {target_word: {}}
+	# for sense optimization
 	index_for_sentence = []
 	en_words = dictionary[target_word]
 	result_sentences, result_classes = [], []
@@ -650,6 +652,7 @@ def get_indo_sentences_and_classes(sentences, target_word, english_tagged_senten
 				#	# correct translation found in the english tagged sentence (with tag)
 				#	sense_key = english_tag_token.sense_key
 		if (word_in_sentence_corner(sentence_indo, target_word)) and sense_key:
+			dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, target_word)
 			result_sentences.append(sentence_indo)
 			result_classes.append(sense_key)
 			index_for_sentence.append(index-1)
