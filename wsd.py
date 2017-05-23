@@ -482,6 +482,12 @@ def get_en_from_a3_by_indo_word(indo, a3):
 			return en_w
 	return None
 
+def get_indo_from_a3_by_en_word(en_word, a3):
+	for (en_w, id_w) in a3:
+		if en_w == id_w:
+			return en_w
+	return None
+
 
 
 def get_stopwords(file):
