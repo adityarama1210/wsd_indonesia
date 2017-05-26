@@ -715,9 +715,9 @@ f_id_original = 'original_id_clean.txt'
 # sentence id original
 f_id_postag = 'original_id_clean_postag.txt'
 # sentence id pos tag
-#f_dictionary = 'enhanced_dictionary_new.txt'
+#f_dictionary = 'enhanced_dictionary_new.txt' # this is the dual dictionary
 #f_dictionary = 'enhanced_dictionary.txt'
-f_dictionary = 'enhanced_dictionary_final.txt'
+f_dictionary = 'enhanced_dictionary_final.txt' # this is the crawling dictionary
 # dictionary
 f_stopwords = 'stopwords.txt'
 # stopword file
