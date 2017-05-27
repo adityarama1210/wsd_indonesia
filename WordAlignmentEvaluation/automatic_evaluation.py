@@ -179,9 +179,9 @@ def get_sentence_number(line):
 
 
 # input the name of giza file and anotator file here
-a3_giza_file = '100_testing_giza.txt'
-a3_anotator_file_1 = '100_testing_nadiarani.txt'
-a3_anotator_file_2 = '100_testing_jodi.txt'
+a3_giza_file = '200_testing_giza.txt'
+a3_anotator_file_1 = '200_testing_nadiarani.txt'
+a3_anotator_file_2 = '200_testing_jodi_hartico.txt'
 # this is the filename section
 
 f_a3 = open(a3_giza_file,'r')
@@ -266,3 +266,5 @@ for key in arr_of_sentence:
 	calculation['agreement'] = float(calculation['agreement'] + agreement) / 2.0 
 
 print 'Precision 1:', round(calculation['precision_1'],3),'Precision 2:', round(calculation['precision_2'],3), 'Recall 1:', round(calculation['recall_1'],3),'Recall 2:', round(calculation['recall_2'],3), 'Agreement:', round(calculation['agreement'],3)
+print 'F-Score 1:', round(2*calculation['precision_1']*calculation['recall_1']/(calculation['precision_1'] + calculation['recall_1']),3)
+print 'F-Score 2:', round(2*calculation['precision_2']*calculation['recall_2']/(calculation['precision_2'] + calculation['recall_2']),3)
