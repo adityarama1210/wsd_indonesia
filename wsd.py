@@ -236,6 +236,10 @@ class WSDIndonesia:
 				if ' '+word+' ' in sentence:
 					# using boolean feature
 					arr[x] = 1
+				if re.search('^'+word+' ', sentence):
+					arr[x] = 1
+				if re.search(' ' + word +'$', sentence):
+					arr[x] = 1
 			x_features.append(arr)
 			print sentence
 			print arr
