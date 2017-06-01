@@ -384,10 +384,14 @@ class WSDIndonesia:
 		for index in range(len(self.sentences)):
 			sentence = self.sentences[index]
 			for stopword in self.stopwords:
-				stopword = ' '+stopword+' '
-				if stopword in sentence:
+				stop = ' '+stopword+' '
+				if stop in sentence:
 					# remove the stopword
-					sentence = sentence.replace(stopword,' ')
+					sentence = sentence.replace(stop,' ')
+				if re.search('^'+stopword+' ', sentence):
+					sentence = re.sub('^'+stopword+' ','', sentence)
+				if re.search(' ' + stopword + '$',sentence):
+					sentence = re.sub(' ' + stopword + '$', '', sentence)
 			self.sentences[index] = sentence
 
 	def remove_stopword_json(self):
