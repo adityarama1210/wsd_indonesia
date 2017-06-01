@@ -94,7 +94,6 @@ class WSDIndonesia:
 		result_arr = []
 		for word in temp_arr.keys():
 			result_arr.append(word)
-		print sorted(result_arr)
 		return result_arr
 
 	def get_bag_of_words_feature_from_json(self):
@@ -229,6 +228,7 @@ class WSDIndonesia:
 
 	def get_features(self, top_words):
 		x_features = []
+		print sorted(top_words)
 		for sentence in sentences:
 			arr = self.zerolistmaker(len(top_words))
 			for x in range(len(top_words)):
@@ -383,6 +383,7 @@ class WSDIndonesia:
 	def remove_stopword(self):
 		for index in range(len(self.sentences)):
 			sentence = self.sentences[index]
+			sentence = sentence.replace('  ',' ')
 			for stopword in self.stopwords:
 				stop = ' '+stopword+' '
 				if stop in sentence:
@@ -392,6 +393,7 @@ class WSDIndonesia:
 					sentence = re.sub('^'+stopword+' ','', sentence)
 				if re.search(' ' + stopword + '$',sentence):
 					sentence = re.sub(' ' + stopword + '$', '', sentence)
+			sentence = sentence.replace('  ',' ')
 			self.sentences[index] = sentence
 
 	def remove_stopword_json(self):
