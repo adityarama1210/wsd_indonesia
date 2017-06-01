@@ -120,7 +120,7 @@ class WSDIndonesia:
 		
 		# get the real features in one hot vector form
 
-		print sorted(result_arr)
+		print result_arr
 
 		x_features = []
 		for sentence_id in self.json_dict['sentences'].keys():
