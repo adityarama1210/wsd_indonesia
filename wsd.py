@@ -228,7 +228,7 @@ class WSDIndonesia:
 
 	def get_features(self, top_words):
 		x_features = []
-		print sorted(top_words)
+		print top_words
 		for sentence in sentences:
 			arr = self.zerolistmaker(len(top_words))
 			for x in range(len(top_words)):
