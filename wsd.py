@@ -94,6 +94,7 @@ class WSDIndonesia:
 		result_arr = []
 		for word in temp_arr.keys():
 			result_arr.append(word)
+		print sorted(result_arr)
 		return result_arr
 
 	def get_bag_of_words_feature_from_json(self):
@@ -236,6 +237,9 @@ class WSDIndonesia:
 					# using boolean feature
 					arr[x] = 1
 			x_features.append(arr)
+			print sentence
+			print arr
+			print '=================='
 		return x_features
 
 	def get_pos_tag_features(self, file, index_for_sentence):
