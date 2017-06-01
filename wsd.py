@@ -33,6 +33,7 @@ class EnglishTagToken:
 		return self.sense_key
 
 class WSDIndonesia:
+	'''
 	def __init__(self, stopwords, sentences, classes, target_word):
 		self.stopwords = stopwords
 		# create stemmer
@@ -52,7 +53,6 @@ class WSDIndonesia:
 		self.json_dict = json_dict
 		self.classes = classes
 		self.target_word = target_word
-	'''
 
 
 	def zerolistmaker(self, n):
@@ -134,6 +134,9 @@ class WSDIndonesia:
 					if word == result_arr[x]:
 						arr[x] = 1
 			x_features.append(arr)
+			print self.json_dict['sentences'][sentence_id]
+			print arr
+			print '====================='
 		temp_arr, result_arr = None, None
 		return x_features
 
@@ -729,7 +732,7 @@ f_stopwords = 'stopwords.txt'
 f_word_embedding_model = 'model_ignore/wordembed-single-lowcase'
 # word embedding model
 f_a3_file = 'Post-Process-A3/output_a3.txt'
-f_json_corpus = 'Resources/indonesia_sense_tagged_corpus.json'
+f_json_corpus = 'Resources/indonesia_sense_tagged_corpus_NEW.json'
 #json_file
 ## the end list of files
 
@@ -757,6 +760,7 @@ if len(sys.argv) > 1:
 		testing_file = sys.argv[2]
 		testing_words = reading_testing_file(testing_file)
 		for word in testing_words:
+			'''
 			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary, a3_file)
 			wsd = WSDIndonesia(stopwords, sentences, classes, word)
 			wsd.remove_stopword()
@@ -765,12 +769,11 @@ if len(sys.argv) > 1:
 			(json_dict, classes) = get_sentence_and_classes_from_json(json_dict, word)
 			wsd = WSDIndonesia(stopwords, json_dict, classes, word)
 			wsd.remove_stopword_json()
-			'''
 			if sys.argv[3] == 'f1':
 				# just bag of words
-				bag_of_words = wsd.get_bag_of_words()
-				features = wsd.get_features(bag_of_words)
-				#features = wsd.get_bag_of_words_feature_from_json()
+				#bag_of_words = wsd.get_bag_of_words()
+				#features = wsd.get_features(bag_of_words)
+				features = wsd.get_bag_of_words_feature_from_json()
 			elif sys.argv[3] == 'f2a':
 				# word embedding
 				features = wsd.get_word_embedding_features(model)
