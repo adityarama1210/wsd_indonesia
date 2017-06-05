@@ -606,6 +606,10 @@ def get_json_of_postag(f_postag):
 		print output
 	'''
 
+def allowed_word(word):
+	m = re.search('^\'+|^"+|^`+|^:+|^;+', word)
+	return m == None
+
 def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionary, a3_file):
 	dict_of_sense_key = {}
 	for sentence_number in json_s['sentences'].keys():
@@ -617,18 +621,19 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 			indo_word = token['word']
 			pos = token['pos']
 			sense_key = token['sense_key']
-			if indo_word not in dict_of_sense_key:
-				dict_of_sense_key[indo_word] = {}
-			sense_key = None
-			if indo_word in dictionary:
-				en_words = dictionary[indo_word]
-				english_word = get_en_from_a3_by_indo_word(indo_word, a3)
-				if english_word and english_word in en_words:
-					# the pair from A3 file exist in the dictionary
-					sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
-			if sense_key:
-				dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, indo_word)
-				json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
+			if allowed_word(indo_word):
+				if indo_word not in dict_of_sense_key:
+					dict_of_sense_key[indo_word] = {}
+				sense_key = None
+				if indo_word in dictionary:
+					en_words = dictionary[indo_word]
+					english_word = get_en_from_a3_by_indo_word(indo_word, a3)
+					if english_word and english_word in en_words:
+						# the pair from A3 file exist in the dictionary
+						sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
+				if sense_key:
+					dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, indo_word)
+					json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
 	return json_s
 
 
