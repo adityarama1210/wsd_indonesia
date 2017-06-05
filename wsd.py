@@ -405,7 +405,12 @@ class WSDIndonesia:
 	def print_sentence_and_class(self):
 		print "===<BEGIN>==="+ self.target_word + "===<BEGIN>==="
 		for x in range(len(sentences)):
-			print (self.sentences[x] + '||' + self.classes[x])
+			_class = self.classes[x]
+			try:
+				class_definition = wn.lemma_from_key(_class).synset().definition()
+			except WordNetError:
+				class_definition = 'Undefined'
+			print (self.sentences[x] + '||' + self.classes[x] + '||' + str(class_definition))
 		print "===<STATISTIC>===#Classes", len(Counter(self.classes))," With ", str(Counter(self.classes)), "===</STATISTIC>===" 
 		print "===<END>===" + self.target_word +"===<END>==="
 
@@ -418,7 +423,7 @@ class WSDIndonesia:
 		baseline = float(arr.most_common(1)[0][1])/self.total_sum(arr)
 		print "Disambiguation for:", self.target_word
 		cv = ShuffleSplit(n_splits=3, test_size=0.3, random_state=0)
-		scores = cross_val_score(clf, features, self.classes, cv=cv, scoring='f1_micro')
+		scores = cross_val_score(clf, features, self.classes, cv=4, scoring='f1_micro')
 		print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 		scores = cross_val_score(bf, features, self.classes, cv=cv, scoring='f1_micro')
 		print("Baseline Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
