@@ -743,7 +743,7 @@ f_stopwords = 'stopwords.txt'
 f_word_embedding_model = 'model_ignore/wordembed-single-lowcase'
 # word embedding model
 f_a3_file = 'Post-Process-A3/output_a3.txt'
-f_json_corpus = 'Resources/indonesia_sense_tagged_corpus.json'
+f_json_corpus = 'Resources/indonesia_sense_tagged_corpus_NEW.json'
 #json_file
 ## the end list of files
 
