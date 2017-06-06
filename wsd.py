@@ -99,8 +99,9 @@ class WSDIndonesia:
 
 	def get_bag_of_words_feature_from_json(self):
 		temp_arr = []
-		for sentence_id in self.json_dict['sentences'].keys():
-			sentence = self.json_dict['sentences'][sentence_id]
+		#for sentence_id in self.json_dict['sentences'].keys():
+		for sentence_id in self.sorted_id:
+			sentence = self.json_dict['sentences'][str(sentence_id)]
 			for index in range(len(sentence['words'])):
 				word_obj = sentence['words'][index]
 				word = word_obj['word']
