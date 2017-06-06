@@ -427,7 +427,7 @@ class WSDIndonesia:
 		cv = ShuffleSplit(n_splits=3, test_size=0.3, random_state=0)
 		scores = cross_val_score(clf, features, self.classes, cv=4, scoring='f1_micro')
 		print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
-		scores = cross_val_score(bf, features, self.classes, cv=cv, scoring='f1_micro')
+		scores = cross_val_score(bf, features, self.classes, cv=4, scoring='f1_micro')
 		print("Baseline Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 		print "With number of classes", len(list(set(self.classes)))
 		print dict(Counter(self.classes))
