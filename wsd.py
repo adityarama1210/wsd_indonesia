@@ -47,11 +47,12 @@ class WSDIndonesia:
 		self.classes = classes
 
 	'''
-	def __init__(self, stopwords, json_dict, classes, target_word):
+	def __init__(self, stopwords, json_dict, classes, target_word, sorted_id):
 		self.stopwords = stopwords
 		self.json_dict = json_dict
 		self.classes = classes
 		self.target_word = target_word
+		self.sorted_id = sorted_id
 	'''
 
 
@@ -680,6 +681,7 @@ def get_sentence_and_classes_from_json(json_dict, target_word):
 	classes = []
 	length = len(json_dict['sentences'].keys())
 	numbers = []
+	sorted_id = []
 	for x in range(length):
 		number = x+1
 		numbers.append(number)
@@ -692,8 +694,9 @@ def get_sentence_and_classes_from_json(json_dict, target_word):
 				# get the current word sense key and sentence
 				classes.append(sense_key)
 				new_json_dict['sentences'][sentence_id] = sentence
+				sorted_id.append(sentence_id)
 				break
-	return (new_json_dict, classes)
+	return (new_json_dict, classes, sorted(sorted_id))
 
 
 def get_indo_sentences_f_postag(file):
@@ -772,8 +775,8 @@ if len(sys.argv) > 1:
 			wsd.remove_stopword()
 			'''
 			json_dict = get_json_corpus(f_json_corpus)
-			(json_dict, classes) = get_sentence_and_classes_from_json(json_dict, word)
-			wsd = WSDIndonesia(stopwords, json_dict, classes, word)
+			(json_dict, classes, sorted_id) = get_sentence_and_classes_from_json(json_dict, word)
+			wsd = WSDIndonesia(stopwords, json_dict, classes, word, sorted_id)
 			wsd.remove_stopword_json()
 			'''
 			if sys.argv[3] == 'f1':
