@@ -12,7 +12,7 @@ class Sentence:
 		temp_giza = self.en_giza.split('({')
 		temp_anotator_1 = self.en_anotator_1.split('({')
 		temp_anotator_2 = self.en_anotator_2.split('({')
-		(p1, r1) = self.calculate_precision_and_recall(temp_giza, temp_anotator_1, 1)
+		(p1, r1, em, total) = self.calculate_precision_and_recall(temp_giza, temp_anotator_1, 1)
 		'''
 		if len(temp_giza) == len(temp_anotator_1):
 			# process
@@ -42,7 +42,7 @@ class Sentence:
 
 		'''
 
-		(p2, r2) = self.calculate_precision_and_recall(temp_giza, temp_anotator_2, 2)
+		(p2, r2, em, total) = self.calculate_precision_and_recall(temp_giza, temp_anotator_2, 2)
 		'''
 		if len(temp_giza) == len(temp_anotator_2):
 			# process
@@ -75,11 +75,25 @@ class Sentence:
 		'''
 		agreement = self.calculate_agreement(temp_anotator_1, temp_anotator_2)
 		#return (p1, p2, r1, r2, agreement)
-		return round(p1,3), round(p2,3), round(r1,3), round(r2,3), round(agreement,3)
+		return round(p1,3), round(p2,3), round(r1,3), round(r2,3), round(agreement,3), em, total
 
 	def is_the_same(self, list_giza, list_anotator):
 		# bracket is in form of array of number / arr of number (in string form)
 		return (set(list_anotator) == set(list_giza))
+
+	def evaluate_null_bracket(self, list_giza, list_anotator):
+		exact_match = list(set(list_giza).intersection(list_anotator))
+		diff = []
+		for x in list_giza:
+			if x not in exact_match:
+				diff.append(x)
+		for x in list_anotator:
+			if x not in exact_match:
+				diff.append(x)
+		exact_match = len(exact_match)
+		total = exact_match + len(diff)
+		return (exact_match, total)
+
 
 	def evaluate_bracket(self, list_giza, list_anotator):
 		# evaluate per character
@@ -110,6 +124,7 @@ class Sentence:
 			# process
 			is_null_bracket = False
 			matches, total_anotator, total_giza = 0, 0, 0
+			exact_match, total = 0, 0
 			for x in range(len(temp_giza)):
 				# processing every token and the brackets
 				if "NULL" in temp_giza[x].strip() and "NULL" in temp_anotator[x].strip():
@@ -123,9 +138,16 @@ class Sentence:
 					# and counter to evaluate precision and recall
 					if is_null_bracket:
 						(numbers_anotator, numbers_giza, match) = self.evaluate_bracket(giza, anotator)
+						temp_exact_match, temp_total = self.evaluate_null_bracket(giza, anotator)
+						exact_match += temp_exact_match
+						total += temp_total
 						is_null_bracket = False
 					else:
 						(numbers_anotator, numbers_giza, match) = self.evaluate_bracket(giza, anotator)
+						total += 1
+						if(self.is_the_same(giza, anotator)):
+							# calculate as exact match
+							exact_match += 1
 						'''
 						this section is for tuple comparation rather than single number comparation
 						if len(giza) > 0:
@@ -139,7 +161,9 @@ class Sentence:
 					total_giza += numbers_giza
 					total_anotator += numbers_anotator
 			# return precision, recall
-			return (float(matches)/float(total_giza)), (float(matches)/float(total_anotator))
+			prec = float(matches)/float(total_giza)
+			rec = float(matches)/float(total_anotator)
+			return (prec, rec, exact_match, total) 
 		else:
 			print str(self.number), 'have different length in giza and anotator number', str(number)
 
@@ -179,9 +203,9 @@ def get_sentence_number(line):
 
 
 # input the name of giza file and anotator file here
-a3_giza_file = '200_testing_giza.txt'
-a3_anotator_file_1 = '200_testing_nadiarani.txt'
-a3_anotator_file_2 = '200_testing_jodi_hartico.txt'
+a3_giza_file = '100_testing_giza.txt'
+a3_anotator_file_1 = '100_testing_nadiarani.txt'
+a3_anotator_file_2 = '100_testing_jodi.txt'
 # this is the filename section
 
 f_a3 = open(a3_giza_file,'r')
@@ -257,8 +281,13 @@ calculation = {
 	'agreement' : 0
 }
 
+exact_match = 0
+total_match = 0
+
 for key in arr_of_sentence:
-	(p1, p2, r1, r2, agreement) = arr_of_sentence[key].evaluate()
+	(p1, p2, r1, r2, agreement, em, total) = arr_of_sentence[key].evaluate()
+	exact_match += em
+	total_match += total
 	calculation['precision_1'] = float(calculation['precision_1'] + p1) / 2.0
 	calculation['precision_2'] = float(calculation['precision_2'] + p2) / 2.0
 	calculation['recall_1'] = float(calculation['recall_1'] + r1) / 2.0 
@@ -268,3 +297,4 @@ for key in arr_of_sentence:
 print 'Precision 1:', round(calculation['precision_1'],3),'Precision 2:', round(calculation['precision_2'],3), 'Recall 1:', round(calculation['recall_1'],3),'Recall 2:', round(calculation['recall_2'],3), 'Agreement:', round(calculation['agreement'],3)
 print 'F-Score 1:', round(2*calculation['precision_1']*calculation['recall_1']/(calculation['precision_1'] + calculation['recall_1']),3)
 print 'F-Score 2:', round(2*calculation['precision_2']*calculation['recall_2']/(calculation['precision_2'] + calculation['recall_2']),3)
+print exact_match, total_match
