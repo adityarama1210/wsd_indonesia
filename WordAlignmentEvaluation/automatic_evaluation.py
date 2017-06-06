@@ -12,7 +12,7 @@ class Sentence:
 		temp_giza = self.en_giza.split('({')
 		temp_anotator_1 = self.en_anotator_1.split('({')
 		temp_anotator_2 = self.en_anotator_2.split('({')
-		(p1, r1, em, total) = self.calculate_precision_and_recall(temp_giza, temp_anotator_1, 1)
+		(p1, r1, a, a) = self.calculate_precision_and_recall(temp_giza, temp_anotator_1, 1)
 		'''
 		if len(temp_giza) == len(temp_anotator_1):
 			# process
@@ -42,7 +42,7 @@ class Sentence:
 
 		'''
 
-		(p2, r2, em, total) = self.calculate_precision_and_recall(temp_giza, temp_anotator_2, 2)
+		(p2, r2, a, a) = self.calculate_precision_and_recall(temp_giza, temp_anotator_2, 2)
 		'''
 		if len(temp_giza) == len(temp_anotator_2):
 			# process
@@ -74,6 +74,7 @@ class Sentence:
 			print str(self.number), 'have different length in giza and anotator number 2'
 		'''
 		agreement = self.calculate_agreement(temp_anotator_1, temp_anotator_2)
+		(em, total) = self.evaluate_exact_match(temp_anotator_1, temp_anotator_2)
 		#return (p1, p2, r1, r2, agreement)
 		return round(p1,3), round(p2,3), round(r1,3), round(r2,3), round(agreement,3), em, total
 
@@ -119,6 +120,33 @@ class Sentence:
 				new_list.append(_list[x])
 		return new_list
 
+	def evaluate_exact_match(self, temp_giza, temp_anotator):
+		is_null_bracket = False
+		exact_match, total, miss = 0, 0, 0
+		for x in range(len(temp_giza)):
+			# processing every token and the brackets
+			if "NULL" in temp_giza[x].strip() and "NULL" in temp_anotator[x].strip():
+				is_null_bracket = True
+				continue
+			if ('})' in temp_giza[x].strip() and '})' in temp_anotator[x].strip()):
+				giza = temp_giza[x].strip().split('})')[0].strip().split(' ')
+				anotator = temp_anotator[x].strip().split('})')[0].strip().split(' ')
+				giza, anotator = self.clean_list_from_empty_string(giza), self.clean_list_from_empty_string(anotator)
+				# need additional filter if either giza is empty (kosong) or anotator is empty
+				# and counter to evaluate precision and recall
+				if is_null_bracket:
+					temp_exact_match, temp_total = self.evaluate_null_bracket(giza, anotator)
+					exact_match += temp_exact_match
+					total += temp_total
+					is_null_bracket = False
+				else:
+					total += 1
+					if(self.is_the_same(giza, anotator)):
+						# calculate as exact match
+						exact_match += 1
+		# return exact match, total
+		return (exact_match, total)
+
 	def calculate_precision_and_recall(self, temp_giza, temp_anotator, number):
 		if len(temp_giza) == len(temp_anotator):
 			# process
@@ -138,9 +166,9 @@ class Sentence:
 					# and counter to evaluate precision and recall
 					if is_null_bracket:
 						(numbers_anotator, numbers_giza, match) = self.evaluate_bracket(giza, anotator)
-						temp_exact_match, temp_total = self.evaluate_null_bracket(giza, anotator)
-						exact_match += temp_exact_match
-						total += temp_total
+						#temp_exact_match, temp_total = self.evaluate_null_bracket(giza, anotator)
+						#exact_match += temp_exact_match
+						#total += temp_total
 						is_null_bracket = False
 					else:
 						(numbers_anotator, numbers_giza, match) = self.evaluate_bracket(giza, anotator)
