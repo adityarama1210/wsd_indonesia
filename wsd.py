@@ -101,7 +101,7 @@ class WSDIndonesia:
 		temp_arr = []
 		#for sentence_id in self.json_dict['sentences'].keys():
 		for sentence_id in self.sorted_id:
-			sentence = self.json_dict['sentences'][str(sentence_id)]
+			sentence = self.json_dict['sentences'][sentence_id]
 			for index in range(len(sentence['words'])):
 				word_obj = sentence['words'][index]
 				word = word_obj['word']
@@ -142,7 +142,7 @@ class WSDIndonesia:
 	def get_pos_tag_features_from_json(self):
 		temp_arr = [[],[],[]]
 		# first for -1 pos tag, second for target word pos tag, and so on
-		for sentence_id in self.json_dict['sentences'].keys():
+		for sentence_id in self.sorted_id:
 			sentence = self.json_dict['sentences'][sentence_id]
 			for index in range(len(sentence['words'])):
 				word_obj = sentence['words'][index]
@@ -208,7 +208,7 @@ class WSDIndonesia:
 		# get the maximum length first!
 		max_length = self.get_max_length_json()
 		x_features = []
-		for sentence_id in self.json_dict['sentences'].keys():
+		for sentence_id in self.sorted_id:
 			sentence = self.json_dict['sentences'][sentence_id]
 			arr = []
 			for x in range(max_length):
@@ -389,7 +389,7 @@ class WSDIndonesia:
 			self.sentences[index] = sentence
 
 	def remove_stopword_json(self):
-		for sentence_id in self.json_dict['sentences'].keys():
+		for sentence_id in sorted_id:
 			new_arr = []
 			sentence = self.json_dict['sentences'][sentence_id]
 			for word_obj in sentence['words']:
