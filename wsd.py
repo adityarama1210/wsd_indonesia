@@ -678,8 +678,13 @@ def get_indo_sentences_and_classes(sentences, target_word, english_tagged_senten
 def get_sentence_and_classes_from_json(json_dict, target_word):
 	new_json_dict = {'sentences': {}}
 	classes = []
-	for sentence_id in json_dict['sentences'].keys():
-		sentence = json_dict['sentences'][sentence_id]
+	length = len(json_dict['sentences'].keys())
+	numbers = []
+	for x in range(length):
+		number = x+1
+		numbers.append(number)
+	for sentence_id in numbers:
+		sentence = json_dict['sentences'][str(sentence_id)]
 		for word_obj in sentence['words']:
 			word = word_obj['word']
 			sense_key = word_obj['sense_key']
