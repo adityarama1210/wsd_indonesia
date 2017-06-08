@@ -33,6 +33,7 @@ class EnglishTagToken:
 		return self.sense_key
 
 class WSDIndonesia:
+	'''
 	def __init__(self, stopwords, sentences, classes, target_word):
 		self.stopwords = stopwords
 		# create stemmer
@@ -53,7 +54,6 @@ class WSDIndonesia:
 		self.classes = classes
 		self.target_word = target_word
 		self.sorted_id = sorted_id
-	'''
 
 
 	def zerolistmaker(self, n):
@@ -121,8 +121,6 @@ class WSDIndonesia:
 			result_arr.append(word)
 		
 		# get the real features in one hot vector form
-
-		print sorted(result_arr)
 
 		x_features = []
 		for sentence_id in self.sorted_id:
