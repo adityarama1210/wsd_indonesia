@@ -771,6 +771,7 @@ if len(sys.argv) > 1:
 		testing_file = sys.argv[2]
 		testing_words = reading_testing_file(testing_file)
 		for word in testing_words:
+			'''
 			(sentences, classes, index_for_sentence) = get_indo_sentences_and_classes(indo_original_sentences, word, english_tagged_sentences, dictionary, a3_file)
 			wsd = WSDIndonesia(stopwords, sentences, classes, word)
 			wsd.remove_stopword()
@@ -779,31 +780,30 @@ if len(sys.argv) > 1:
 			(json_dict, classes, sorted_id) = get_sentence_and_classes_from_json(json_dict, word)
 			wsd = WSDIndonesia(stopwords, json_dict, classes, word, sorted_id)
 			wsd.remove_stopword_json()
-			'''
 			if sys.argv[3] == 'f1':
 				# just bag of words
-				bag_of_words = wsd.get_bag_of_words()
-				features = wsd.get_features(bag_of_words)
-				#features = wsd.get_bag_of_words_feature_from_json()
+				#bag_of_words = wsd.get_bag_of_words()
+				#features = wsd.get_features(bag_of_words)
+				features = wsd.get_bag_of_words_feature_from_json()
 			elif sys.argv[3] == 'f2a':
 				# word embedding
-				features = wsd.get_word_embedding_features(model)
-				#features = wsd.get_word_embedding_features_from_json(model)
+				#features = wsd.get_word_embedding_features(model)
+				features = wsd.get_word_embedding_features_from_json(model)
 			elif sys.argv[3] == 'f2b':
 				# word embedding
-				features = wsd.get_word_embedding_features_full_token(model)
-				#features = wsd.get_word_embedding_features_from_json(model)
+				#features = wsd.get_word_embedding_features_full_token(model)
+				features = wsd.get_word_embedding_features_from_json(model)
 			elif sys.argv[3] == 'f3':
 				# pos tagging only
-				features = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
-				#features = wsd.get_pos_tag_features_from_json()
+				#features = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
+				features = wsd.get_pos_tag_features_from_json()
 			elif sys.argv[3] == 'f4':
 				# pos tagging and bag of words
 				f1 = wsd.get_pos_tag_features(f_id_postag, index_for_sentence)
-				#f1 = wsd.get_pos_tag_features_from_json()
-				bag_of_words = wsd.get_bag_of_words()
-				f2 = wsd.get_features(bag_of_words)
-				#f2 = wsd.get_bag_of_words_feature_from_json()
+				f1 = wsd.get_pos_tag_features_from_json()
+				#bag_of_words = wsd.get_bag_of_words()
+				#f2 = wsd.get_features(bag_of_words)
+				f2 = wsd.get_bag_of_words_feature_from_json()
 				features = wsd.concat_features(f1, f2)
 			else:
 				print 'Feature doesn\'t exist!'
