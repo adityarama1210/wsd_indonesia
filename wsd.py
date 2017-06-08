@@ -125,7 +125,7 @@ class WSDIndonesia:
 		print sorted(result_arr)
 
 		x_features = []
-		for sentence_id in self.json_dict['sentences'].keys():
+		for sentence_id in self.sorted_id:
 			sentence = self.json_dict['sentences'][sentence_id]
 			arr = self.zerolistmaker(len(result_arr))
 			for x in range(len(result_arr)):
@@ -166,7 +166,7 @@ class WSDIndonesia:
 		# get the real features in one hot vector form
 
 		x_features = []
-		for sentence_id in self.json_dict['sentences'].keys():
+		for sentence_id in self.sorted_id:
 			sentence = self.json_dict['sentences'][sentence_id]
 			arr_0 = self.zerolistmaker(len(result_arr[0]))
 			arr_1 = self.zerolistmaker(len(result_arr[1]))
@@ -197,7 +197,7 @@ class WSDIndonesia:
 
 	def get_max_length_json(self):
 		tmp_max = 0
-		for sentence_id in self.json_dict['sentences'].keys():
+		for sentence_id in self.sorted_id:
 			sentence = self.json_dict['sentences'][sentence_id]
 			if len(sentence['words']) > tmp_max:
 				tmp_max = len(sentence['words'])
