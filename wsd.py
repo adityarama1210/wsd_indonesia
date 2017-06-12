@@ -618,6 +618,7 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 		sentence = json_s['sentences'][sentence_number]
 		en_tag_sentence = english_tagged_sentences[sentence_number]
 		a3 = a3_file[sentence_number]
+		word_en_and_sense = {}
 		for index in range(len(sentence['words'])):
 			token = sentence['words'][index]
 			indo_word = token['word']
@@ -634,10 +635,58 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 						# the pair from A3 file exist in the dictionary
 						sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
 				if sense_key:
+					# english word and sense_key available
 					dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, indo_word)
 					json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
+		# processing the multiword start here
+		sentence = json_s['sentences'][sentence_number]
+		for (w_en, w_id) in a3:
+		# a3 in form of [(eat,makan),(long,panjang),(distance,jarak),...]
+			if w_en != 'null' and len(w_id.split(' ')) == 2:
+				# confirming this is multiword
+				# for this currently only able to handle multiword with 2 words/tokens
+				first_token = w_id.split(' ')[0]
+				second_token = w_id.split(' ')[1]
+				sense_key = get_sense_key_from_en_tag_sentence(w_en, en_tag_sentence)
+				if sense_key:
+					if first_token in dictionary and w_en in dictionary[first_token]:
+						# salah satu kata di multiwordnya berpasangan dengan kata di english wordnya
+						# misal: "eat", "makan banyak". jika "makan" berpasangan dengan "eat" maka transfer sensenya langsung
+						# transfer sense ke kata pertama
+						for index in range(len(sentence['words'])):
+							token = sentence['words'][index]
+							indo_word = token['word']
+							sense_key = token['sense_key']
+							if indo_word == first_token and sense_key != '':
+								# replace the sense key for this multiword part
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = 'm_'+sense_key+'_m'
+					elif second_token in dictionary and w_en in dictionary[second_token]:
+						# transfer sense ke kata kedua
+						for index in range(len(sentence['words'])):
+							token = sentence['words'][index]
+							indo_word = token['word']
+							sense_key = token['sense_key']
+							if indo_word == second_token and sense_key != '':
+								# replace the sense key for this multiword part
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = 'm_'+sense_key+'_m'
+					else:
+						# transfer sense ke kedua kata tersebut
+						for index in range(len(sentence['words'])):
+							token = sentence['words'][index]
+							indo_word = token['word']
+							sense_key = token['sense_key']
+							if indo_word == first_token and sense_key != '':
+								# replace the sense key for this multiword part
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = 'm_'+sense_key+'_m'
+						for index in range(len(sentence['words'])):
+							token = sentence['words'][index]
+							indo_word = token['word']
+							sense_key = token['sense_key']
+							if indo_word == second_token and sense_key != '':
+								# replace the sense key for this multiword part
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = 'm_'+sense_key+'_m'
+		# processing multiword end here
 	return json_s
-
 
 ## end of processing
 
