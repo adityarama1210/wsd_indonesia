@@ -824,4 +824,7 @@ if len(sys.argv) > 1:
 		json_s = produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionary, a3_file)
 		print json.dumps(json_s, indent=4, separators=(',',': '))
 
+	else:
+		print "Command not found"
+
 ## script end here
