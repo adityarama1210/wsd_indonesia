@@ -97,6 +97,30 @@ class WSDIndonesia:
 			result_arr.append(word)
 		return result_arr
 
+	def prototype_all_words_feature_json(self):
+		temp_arr = []
+		for sentence_id in self.sorted_id:
+			sentence = self.json_dict['sentences'][sentence_id]
+			for index in range(len(sentence['words'])):
+				word_obj = sentence['words'][index]
+				word = word_obj['word']
+				if word not in temp_arr:
+					temp_arr.append(word)
+
+		x_features = []
+		for sentence_id in self.json_dict['sentences'].keys():
+			sentence = self.json_dict['sentences'][sentence_id]
+			arr = self.zerolistmaker(len(temp_arr))
+			for x in range(len(temp_arr)):
+				# check if the sentence contain the words
+				for index in range(len(sentence['words'])):
+					word_obj = sentence['words'][index]
+					word = word_obj['word']
+					if word == temp_arr[x]:
+						arr[x] = 1
+			x_features.append(arr)
+		return x_features
+
 	def get_bag_of_words_feature_from_json(self):
 		temp_arr = []
 		#for sentence_id in self.json_dict['sentences'].keys():
@@ -783,6 +807,7 @@ if len(sys.argv) > 1:
 				#bag_of_words = wsd.get_bag_of_words()
 				#features = wsd.get_features(bag_of_words)
 				features = wsd.get_bag_of_words_feature_from_json()
+				#features = wsd.prototype_all_words_feature_json()
 			elif sys.argv[3] == 'f2a':
 				# word embedding
 				#features = wsd.get_word_embedding_features(model)
