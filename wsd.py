@@ -693,7 +693,7 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 							sense_key = token['sense_key']
 							if indo_word == first_token and sense_key != '':
 								# replace the sense key for this multiword part
-								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = 'm_'+sense_key+'_m'
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
 					elif second_token in dictionary and w_en in dictionary[second_token]:
 						# transfer sense ke kata kedua
 						for index in range(len(sentence['words'])):
@@ -702,7 +702,7 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 							sense_key = token['sense_key']
 							if indo_word == second_token and sense_key != '':
 								# replace the sense key for this multiword part
-								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = 'm_'+sense_key+'_m'
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
 					else:
 						# transfer sense ke kedua kata tersebut
 						for index in range(len(sentence['words'])):
