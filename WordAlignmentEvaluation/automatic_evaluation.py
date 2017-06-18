@@ -14,7 +14,11 @@ class Sentence:
 		temp_giza = self.en_giza.split('({')
 		temp_anotator_1 = self.en_anotator_1.split('({')
 		temp_anotator_2 = self.en_anotator_2.split('({')
+		temp_crawling = self.en_crawling.split('({')
+		temp_bidirectional = self.en_bidirectional.split('({')
 		(p1, r1, a, a) = self.calculate_precision_and_recall(temp_giza, temp_anotator_1, 1)
+		(p1_crawling, r1_crawling, a, a) = self.calculate_precision_and_recall(temp_crawling, temp_anotator_1, 1)
+		(p1_bidirectional, r1_bidirectional, a, a) = self.calculate_precision_and_recall(temp_bidirectional, temp_anotator_1, 1)
 		'''
 		if len(temp_giza) == len(temp_anotator_1):
 			# process
@@ -45,6 +49,8 @@ class Sentence:
 		'''
 
 		(p2, r2, a, a) = self.calculate_precision_and_recall(temp_giza, temp_anotator_2, 2)
+		(p2_crawling, r2_crawling, a, a) = self.calculate_precision_and_recall(temp_crawling, temp_anotator_2, 2)
+		(p2_bidirectional, r2_bidirectional, a, a) = self.calculate_precision_and_recall(temp_bidirectional, temp_anotator_2, 2)
 		'''
 		if len(temp_giza) == len(temp_anotator_2):
 			# process
@@ -78,7 +84,7 @@ class Sentence:
 		agreement = self.calculate_agreement(temp_anotator_1, temp_anotator_2)
 		(em, total) = self.evaluate_exact_match(temp_anotator_1, temp_anotator_2)
 		#return (p1, p2, r1, r2, agreement)
-		return round(p1,3), round(p2,3), round(r1,3), round(r2,3), round(agreement,3), em, total
+		return round(p1,3), round(p2,3), round(r1,3), round(r2,3), round(agreement,3), em, total, round(p1_crawling, 3), round(p2_crawling, 3), round(r1_crawling, 3), round(r2_crawling, 3), round(p1_bidirectional, 3), round(p2_bidirectional, 3), round(r1_bidirectional, 3), round(r2_bidirectional, 3)
 
 	def is_the_same(self, list_giza, list_anotator):
 		# bracket is in form of array of number / arr of number (in string form)
@@ -347,23 +353,50 @@ calculation = {
 	'recall_2' : 0,
 	'f1_1' : 0,
 	'f1_2' : 0,
-	'agreement' : 0
+	'agreement' : 0,
+	'precision_1_crawling' : 0,
+	'precision_2_crawling' : 0,
+	'precision_1_bidirectional' : 0,
+	'precision_2_bidirectional' : 0,
+	'recall_1_crawling' : 0,
+	'recall_2_crawling' : 0,
+	'recall_1_bidirectional' : 0,
+	'recall_2_bidirectional' : 0
 }
 
 exact_match = 0
 total_match = 0
 
 for key in arr_of_sentence:
-	(p1, p2, r1, r2, agreement, em, total) = arr_of_sentence[key].evaluate()
+	(p1, p2, r1, r2, agreement, em, total, p1_crawling, p2_crawling, r1_crawling, r2_crawling, p1_bidirectional, p2_bidirectional, r1_bidirectional, r2_bidirectional) = arr_of_sentence[key].evaluate()
 	exact_match += em
 	total_match += total
 	calculation['precision_1'] = float(calculation['precision_1'] + p1) / 2.0
+	calculation['precision_1_crawling'] = float(calculation['precision_1_crawling'] + p1_crawling) / 2.0
+	calculation['precision_1_bidirectional'] = float(calculation['precision_1_bidirectional'] + p1_bidirectional) / 2.0
 	calculation['precision_2'] = float(calculation['precision_2'] + p2) / 2.0
+	calculation['precision_2_crawling'] = float(calculation['precision_2_crawling'] + p2_crawling) / 2.0
+	calculation['precision_2_bidirectional'] = float(calculation['precision_2_bidirectional'] + p2_bidirectional) / 2.0
 	calculation['recall_1'] = float(calculation['recall_1'] + r1) / 2.0 
+	calculation['recall_1_crawling'] = float(calculation['recall_1_crawling'] + r1_crawling) / 2.0
+	calculation['recall_1_bidirectional'] = float(calculation['recall_1_bidirectional'] + r1_bidirectional) / 2.0
 	calculation['recall_2'] = float(calculation['recall_2'] + r2) / 2.0
+	calculation['recall_2_crawling'] = float(calculation['recall_2_crawling'] + r2_crawling) / 2.0
+	calculation['recall_2_bidirectional'] = float(calculation['recall_2_bidirectional'] + r2_bidirectional) / 2.0
 	calculation['agreement'] = float(calculation['agreement'] + agreement) / 2.0 
 
+print ' With Original Giza '
 print 'Precision 1:', round(calculation['precision_1'],3),'Precision 2:', round(calculation['precision_2'],3), 'Recall 1:', round(calculation['recall_1'],3),'Recall 2:', round(calculation['recall_2'],3), 'Agreement:', round(calculation['agreement'],3)
 print 'F-Score 1:', round(2*calculation['precision_1']*calculation['recall_1']/(calculation['precision_1'] + calculation['recall_1']),3)
 print 'F-Score 2:', round(2*calculation['precision_2']*calculation['recall_2']/(calculation['precision_2'] + calculation['recall_2']),3)
 print exact_match, total_match
+
+print ' With Crawling '
+print 'Precision 1:', round(calculation['precision_1_crawling'],3),'Precision 2:', round(calculation['precision_2_crawling'],3), 'Recall 1:', round(calculation['recall_1_crawling'],3),'Recall 2:', round(calculation['recall_2_crawling'],3), 'Agreement:', round(calculation['agreement'],3)
+print 'F-Score 1:', round(2*calculation['precision_1_crawling']*calculation['recall_1_crawling']/(calculation['precision_1_crawling'] + calculation['recall_1_crawling']),3)
+print 'F-Score 2:', round(2*calculation['precision_2_crawling']*calculation['recall_2_crawling']/(calculation['precision_2_crawling'] + calculation['recall_2_crawling']),3)
+
+print ' With Bidirectional '
+print 'Precision 1:', round(calculation['precision_1_bidirectional'],3),'Precision 2:', round(calculation['precision_2_bidirectional'],3), 'Recall 1:', round(calculation['recall_1_bidirectional'],3),'Recall 2:', round(calculation['recall_2_bidirectional'],3), 'Agreement:', round(calculation['agreement'],3)
+print 'F-Score 1:', round(2*calculation['precision_1_bidirectional']*calculation['recall_1_bidirectional']/(calculation['precision_1_bidirectional'] + calculation['recall_1_bidirectional']),3)
+print 'F-Score 2:', round(2*calculation['precision_2_bidirectional']*calculation['recall_2_bidirectional']/(calculation['precision_2_bidirectional'] + calculation['recall_2_bidirectional']),3)
