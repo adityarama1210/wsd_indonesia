@@ -1,12 +1,14 @@
 import re
 
 class Sentence:
-	def __init__(self, number, indo, en_anotator_1, en_anotator_2, en_giza):
+	def __init__(self, number, indo, en_anotator_1, en_anotator_2, en_giza, en_bidirectional, en_crawling):
 		self.number = number
 		self.indo = indo
 		self.en_giza = en_giza
 		self.en_anotator_1 = en_anotator_1
 		self.en_anotator_2 = en_anotator_2
+		self.en_bidirectional = en_bidirectional
+		self.en_crawling = en_crawling
 	def evaluate(self):
 		# compare the en_giza and en_anotator
 		temp_giza = self.en_giza.split('({')
@@ -231,14 +233,18 @@ def get_sentence_number(line):
 
 
 # input the name of giza file and anotator file here
-a3_giza_file = '100_testing_giza.txt'
+a3_giza_file = '200_testing_giza.txt'
 a3_anotator_file_1 = '100_testing_nadiarani.txt'
 a3_anotator_file_2 = '100_testing_jodi.txt'
+a3_bidirectional_file = '200_testing_bidirectional.txt'
+a3_crawling_file = '200_testing_crawling.txt'
 # this is the filename section
 
 f_a3 = open(a3_giza_file,'r')
 f_a3_anotator_1 = open(a3_anotator_file_1, 'r')
 f_a3_anotator_2 = open(a3_anotator_file_2, 'r')
+f_a3_bidirectional = open(a3_bidirectional_file, 'r')
+f_a3_crawling = open(a3_crawling_file, 'r')
 
 arr_of_sentence = {}
 
@@ -250,7 +256,7 @@ for line in f_a3:
 	line = line.strip()
 	if "Sentence pair #" in line:
 		number = get_sentence_number(line)
-		sentence = Sentence(number, '', '', '', '')
+		sentence = Sentence(number, '', '', '', '', '', '')
 		arr_of_sentence[number] = sentence
 		state = 1
 	else:
@@ -294,10 +300,45 @@ for line in f_a3_anotator_2:
 		if state == 1:
 			state = 2
 		elif state == 2:
+			line = re.sub('(\.| \.) \(\{ \}\)$|(\.| \.) \(\{ ([\d]+) \}\)$', '', line)
 			sentence.en_anotator_2 = line
 			state = 0
 
 f_a3_anotator_2.close()
+
+
+for line in f_a3_bidirectional:
+	# from anotator 2
+	line = line.strip()
+	if "Sentence pair #" in line:
+		state = 1
+		number = get_sentence_number(line)
+		sentence = arr_of_sentence[number]
+	else:
+		if state == 1:
+			state = 2
+		elif state == 2:
+			sentence.en_bidirectional = line
+			state = 0
+
+f_a3_bidirectional.close()
+
+for line in f_a3_crawling:
+	# from anotator 2
+	line = line.strip()
+	if "Sentence pair #" in line:
+		state = 1
+		number = get_sentence_number(line)
+		sentence = arr_of_sentence[number]
+	else:
+		if state == 1:
+			state = 2
+		elif state == 2:
+			sentence.en_crawling = line
+			state = 0
+
+f_a3_crawling.close()
+
 
 calculation = {
 	'precision_1' : 0,
