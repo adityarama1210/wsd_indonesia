@@ -74,6 +74,16 @@ class WSDIndonesia:
 			result_arr.append(word)
 		return result_arr
 
+	def get_all_document_words(self):
+		result = []
+		for sentence in self.sentences:
+			arr = sentence.split(' ')
+			for token in arr:
+				# take all of the word
+				if token not in result:
+					result.append(token)
+		return result
+
 	def get_bag_of_words(self):
 		temp_arr = []
 		for sentence in self.sentences:
@@ -96,6 +106,30 @@ class WSDIndonesia:
 		for word in temp_arr.keys():
 			result_arr.append(word)
 		return result_arr
+
+	def prototype_all_words_feature_json(self):
+		temp_arr = []
+		for sentence_id in self.sorted_id:
+			sentence = self.json_dict['sentences'][sentence_id]
+			for index in range(len(sentence['words'])):
+				word_obj = sentence['words'][index]
+				word = word_obj['word']
+				if word not in temp_arr:
+					temp_arr.append(word)
+
+		x_features = []
+		for sentence_id in self.json_dict['sentences'].keys():
+			sentence = self.json_dict['sentences'][sentence_id]
+			arr = self.zerolistmaker(len(temp_arr))
+			for x in range(len(temp_arr)):
+				# check if the sentence contain the words
+				for index in range(len(sentence['words'])):
+					word_obj = sentence['words'][index]
+					word = word_obj['word']
+					if word == temp_arr[x]:
+						arr[x] = 1
+			x_features.append(arr)
+		return x_features
 
 	def get_bag_of_words_feature_from_json(self):
 		temp_arr = []
@@ -618,6 +652,7 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 		sentence = json_s['sentences'][sentence_number]
 		en_tag_sentence = english_tagged_sentences[sentence_number]
 		a3 = a3_file[sentence_number]
+		word_en_and_sense = {}
 		for index in range(len(sentence['words'])):
 			token = sentence['words'][index]
 			indo_word = token['word']
@@ -634,10 +669,58 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 						# the pair from A3 file exist in the dictionary
 						sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
 				if sense_key:
+					# english word and sense_key available
 					dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, indo_word)
 					json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
+		# processing the multiword start here
+		sentence = json_s['sentences'][sentence_number]
+		for (w_en, w_id) in a3:
+		# a3 in form of [(eat,makan),(long,panjang),(distance,jarak),...]
+			if w_en != 'null' and len(w_id.split(' ')) == 2:
+				# confirming this is multiword
+				# for this currently only able to handle multiword with 2 words/tokens
+				first_token = w_id.split(' ')[0]
+				second_token = w_id.split(' ')[1]
+				sense_key = get_sense_key_from_en_tag_sentence(w_en, en_tag_sentence)
+				if sense_key:
+					if first_token in dictionary and w_en in dictionary[first_token]:
+						# salah satu kata di multiwordnya berpasangan dengan kata di english wordnya
+						# misal: "eat", "makan banyak". jika "makan" berpasangan dengan "eat" maka transfer sensenya langsung
+						# transfer sense ke kata pertama
+						for index in range(len(sentence['words'])):
+							token = sentence['words'][index]
+							indo_word = token['word']
+							sense_key = token['sense_key']
+							if indo_word == first_token and sense_key != '':
+								# replace the sense key for this multiword part
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
+					elif second_token in dictionary and w_en in dictionary[second_token]:
+						# transfer sense ke kata kedua
+						for index in range(len(sentence['words'])):
+							token = sentence['words'][index]
+							indo_word = token['word']
+							sense_key = token['sense_key']
+							if indo_word == second_token and sense_key != '':
+								# replace the sense key for this multiword part
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
+					else:
+						# transfer sense ke kedua kata tersebut
+						for index in range(len(sentence['words'])):
+							token = sentence['words'][index]
+							indo_word = token['word']
+							sense_key = token['sense_key']
+							if indo_word == first_token and sense_key != '':
+								# replace the sense key for this multiword part
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = 'm_'+sense_key+'_m'
+						for index in range(len(sentence['words'])):
+							token = sentence['words'][index]
+							indo_word = token['word']
+							sense_key = token['sense_key']
+							if indo_word == second_token and sense_key != '':
+								# replace the sense key for this multiword part
+								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = 'm_'+sense_key+'_m'
+		# processing multiword end here
 	return json_s
-
 
 ## end of processing
 
@@ -783,6 +866,7 @@ if len(sys.argv) > 1:
 			if sys.argv[3] == 'f1':
 				# just bag of words
 				bag_of_words = wsd.get_bag_of_words()
+				#bag_of_words = wsd.get_all_document_words()
 				features = wsd.get_features(bag_of_words)
 				#features = wsd.get_bag_of_words_feature_from_json()
 			elif sys.argv[3] == 'f2a':
@@ -823,5 +907,8 @@ if len(sys.argv) > 1:
 		json_s = get_json_of_postag('Resources/'+f_id_postag)
 		json_s = produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionary, a3_file)
 		print json.dumps(json_s, indent=4, separators=(',',': '))
+
+	else:
+		print "Command not found"
 
 ## script end here
