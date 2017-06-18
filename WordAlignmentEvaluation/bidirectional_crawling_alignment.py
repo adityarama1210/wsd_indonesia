@@ -9,6 +9,8 @@ import re
 f_giza = '200_testing_giza.txt'
 f_crawling_dict = '../Resources/enhanced_dictionary_final.txt'
 f_bidirectional_dict = '../Resources/enhanced_dictionary_new.txt'
+f_out_bidirectional = '200_testing_crawling.txt'
+f_out_crawling = '200_testing_bidirectional.txt'
 
 def get_dictionary_from_file(dictionary_file):
 	dictionary = {}
@@ -41,12 +43,41 @@ def clean_indexes(indexes):
 			result.append(index)
 	return result
 
+def modify_obj_word_based_on_dictionary(dictionary, objword, list_of_indo_words):
+	new_obj_word = ObjWord(objword.word, objword.index)
+	if new_obj_word.word == 'NULL':
+		return new_obj_word
+	if new_obj_word.word in dictionary:
+		word_id_dict = dictionary[new_obj_word.word]
+	else:
+		# not available in dictionary, then return it
+		return new_obj_word
+	indexes = new_obj_word.index
+	if indexes:
+		new_indexes = []
+		# the case should be
+		# word is available in the dictionary, and the numbers inside of it are correct
+		for index in indexes:
+			if index < len(list_of_indo_words):
+				index = int(index)
+				word_id = list_of_indo_words[index]
+				if word_id in word_id_dict:
+					new_indexes.append(str(index))
+		new_obj_word.index = new_indexes
+	return new_obj_word
+
+
 dictionary_crawling = get_dictionary_from_file(f_crawling_dict)
 dictionary_bidirectional = get_dictionary_from_file(f_bidirectional_dict)
 
 indo_sentence = None
-obj_words = []
+obj_words_bidirectional, obj_words_crawling = [], []
 file = open(f_giza, 'r')
+number = 0
+
+out_crawling = open(f_out_crawling, 'w')
+out_bidirectional = open(f_out_bidirectional, 'w')
+
 for line in file:
 	line = line.strip()
 	'''
@@ -57,6 +88,7 @@ for line in file:
 	if "Sentence pair #" in line:
 		state = 1 
 		# state == 1 is indonesian
+		number += 1
 		continue
 	elif state == 1:
 		indo_sentence = line.split(' ')
@@ -70,8 +102,17 @@ for line in file:
 				word = token[0].strip()
 				indexes = token[1].strip()
 				indexes = clean_indexes(indexes)
-				_str = _str + word + ' ({' + str(indexes) + '})' +' '
-				obj_words.append(ObjWord(word, indexes))
+				objword = ObjWord(word, indexes)
+				objword_bidirectional = modify_obj_word_based_on_dictionary(dictionary_bidirectional, objword, indo_sentence)
+				obj_words_bidirectional.append(objword_bidirectional)
+				objword_crawling = modify_obj_word_based_on_dictionary(dictionary_crawling, objword, indo_sentence)
+				obj_words_crawling.append(objword_crawling)
 		# obj_words is now containing list of word and their corresponding indexes
+		# print the sentence pair and the indonesian file with the english aligned version
+		out_crawling.write('Sentence pair #'+ str(number) +'\n')
+		out_bidirectional.write('Sentence pair #'+ str(number) +'\n')
 		state = 0
+
 file.close()
+out_crawling.close()
+out_bidirectional.close()
