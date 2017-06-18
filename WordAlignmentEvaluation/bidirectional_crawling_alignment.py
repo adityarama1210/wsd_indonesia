@@ -66,11 +66,29 @@ def modify_obj_word_based_on_dictionary(dictionary, objword, list_of_indo_words)
 		new_obj_word.index = new_indexes
 	return new_obj_word
 
+def get_printed_obj_words(obj_words):
+	str_result = ''
+	for obj_word in obj_words:
+		word = obj_word.word
+		indexes = obj_word.index
+		str_result = str_result + word + ' ({ '
+		for index in indexes:
+			str_result = str_result + str(index) + ' '
+		str_result = str_result + '}) '
+	str_result = str_result.strip()
+	return str_result
+
+def print_out_sentence(file, sentence_number, indo_sentence, obj_words):
+	file.write('Sentence pair #'+ str(sentence_number) +'\n')
+	file.write(indo_sentences + '\n')
+	file.write(get_printed_obj_words(obj_words) + '\n')
+
 
 dictionary_crawling = get_dictionary_from_file(f_crawling_dict)
 dictionary_bidirectional = get_dictionary_from_file(f_bidirectional_dict)
 
 indo_sentence = None
+indo_sentences = None
 obj_words_bidirectional, obj_words_crawling = [], []
 file = open(f_giza, 'r')
 number = 0
@@ -92,6 +110,7 @@ for line in file:
 		continue
 	elif state == 1:
 		indo_sentence = line.split(' ')
+		indo_sentences = line
 		state = 2
 	elif state == 2:
 		tmp = line.split('})')
@@ -109,8 +128,9 @@ for line in file:
 				obj_words_crawling.append(objword_crawling)
 		# obj_words is now containing list of word and their corresponding indexes
 		# print the sentence pair and the indonesian file with the english aligned version
-		out_crawling.write('Sentence pair #'+ str(number) +'\n')
-		out_bidirectional.write('Sentence pair #'+ str(number) +'\n')
+		print_out_sentence(out_crawling, number, indo_sentences, obj_words_crawling)
+		print_out_sentence(out_bidirectional, number, indo_sentences, obj_words_bidirectional)
+		obj_words_bidirectional, obj_words_crawling = [], []
 		state = 0
 
 file.close()
