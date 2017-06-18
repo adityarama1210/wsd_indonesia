@@ -7,8 +7,8 @@
 import re
 
 f_giza = '200_testing_giza.txt'
-f_crawling_dict = ''
-f_bidirectional_dict = ''
+f_crawling_dict = '../Resources/enhanced_dictionary_final.txt'
+f_bidirectional_dict = '../Resources/enhanced_dictionary_new.txt'
 
 def get_dictionary_from_file(dictionary_file):
 	dictionary = {}
@@ -66,10 +66,12 @@ for line in file:
 		for token in tmp:
 			#  All ({ 1 
 			token = token.strip().split('({')
-			word = token[0].strip()
-			indexes = token[1].strip()
-			indexes = clean_indexes(indexes)
-			obj_words.append(new ObjWord(word, indexes))
+			if token != ['']:
+				word = token[0].strip()
+				indexes = token[1].strip()
+				indexes = clean_indexes(indexes)
+				_str = _str + word + ' ({' + str(indexes) + '})' +' '
+				obj_words.append(ObjWord(word, indexes))
 		# obj_words is now containing list of word and their corresponding indexes
 		state = 0
 file.close()
