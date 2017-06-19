@@ -66,6 +66,8 @@ def modify_obj_word_based_on_dictionary(dictionary, objword, list_of_indo_words,
 			if int(index) < len(list_of_indo_words):
 				index = int(index)
 				word_id = list_of_indo_words[index-1]
+				if word_id == new_obj_word.word:
+					new_indexes.append(str(index))
 				if word_id in dictionary:
 					if new_obj_word.word in dictionary[word_id]:
 						new_indexes.append(str(index))
