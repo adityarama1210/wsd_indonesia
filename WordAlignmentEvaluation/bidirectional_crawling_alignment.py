@@ -47,13 +47,16 @@ def modify_obj_word_based_on_dictionary(dictionary, objword, list_of_indo_words,
 	# type == 1 if crawling
 	# type == 2 if bidirectional
 	new_obj_word = ObjWord(objword.word, objword.index)
+
 	if new_obj_word.word == 'NULL':
 		return new_obj_word
+	'''
 	if new_obj_word.word in dictionary:
 		word_id_dict = dictionary[new_obj_word.word]
 	else:
 		# not available in dictionary, then return it
 		return new_obj_word
+	'''
 	indexes = new_obj_word.index
 	if indexes:
 		new_indexes = []
