@@ -43,7 +43,9 @@ def clean_indexes(indexes):
 			result.append(index)
 	return result
 
-def modify_obj_word_based_on_dictionary(dictionary, objword, list_of_indo_words):
+def modify_obj_word_based_on_dictionary(dictionary, objword, list_of_indo_words, type):
+	# type == 1 if crawling
+	# type == 2 if bidirectional
 	new_obj_word = ObjWord(objword.word, objword.index)
 	if new_obj_word.word == 'NULL':
 		return new_obj_word
@@ -58,11 +60,18 @@ def modify_obj_word_based_on_dictionary(dictionary, objword, list_of_indo_words)
 		# the case should be
 		# word is available in the dictionary, and the numbers inside of it are correct
 		for index in indexes:
-			if index < len(list_of_indo_words):
+			if int(index) < len(list_of_indo_words):
 				index = int(index)
-				word_id = list_of_indo_words[index]
+				word_id = list_of_indo_words[index-1]
+				if word_id in dictionary:
+					if new_obj_word.word in dictionary[word_id]:
+						new_indexes.append(str(index))
+				else:
+					new_indexes.append(str(index))
+				'''
 				if word_id in word_id_dict:
 					new_indexes.append(str(index))
+				'''
 		new_obj_word.index = new_indexes
 	return new_obj_word
 
@@ -83,9 +92,27 @@ def print_out_sentence(file, sentence_number, indo_sentence, obj_words):
 	file.write(indo_sentences + '\n')
 	file.write(get_printed_obj_words(obj_words) + '\n')
 
+def reverse_dictionary(dictionary):
+	# default is indo --> english | english | ...
+	new_dict = {}
+	for word_id in dictionary:
+		en_words = dictionary[word_id]
+		for word_en in en_words:
+			if word_en not in new_dict:
+				new_dict[word_en] = {}
+			if word_id not in new_dict[word_en]:
+				new_dict[word_en][word_id] = 1
+	return new_dict
+
 
 dictionary_crawling = get_dictionary_from_file(f_crawling_dict)
 dictionary_bidirectional = get_dictionary_from_file(f_bidirectional_dict)
+#### coba2
+'''
+dictionary_crawling = reverse_dictionary(dictionary_crawling)
+dictionary_bidirectional = reverse_dictionary(dictionary_bidirectional)
+'''
+#### coba2
 
 indo_sentence = None
 indo_sentences = None
@@ -122,9 +149,9 @@ for line in file:
 				indexes = token[1].strip()
 				indexes = clean_indexes(indexes)
 				objword = ObjWord(word, indexes)
-				objword_bidirectional = modify_obj_word_based_on_dictionary(dictionary_bidirectional, objword, indo_sentence)
+				objword_bidirectional = modify_obj_word_based_on_dictionary(dictionary_bidirectional, objword, indo_sentence, 2)
 				obj_words_bidirectional.append(objword_bidirectional)
-				objword_crawling = modify_obj_word_based_on_dictionary(dictionary_crawling, objword, indo_sentence)
+				objword_crawling = modify_obj_word_based_on_dictionary(dictionary_crawling, objword, indo_sentence, 1)
 				obj_words_crawling.append(objword_crawling)
 		# obj_words is now containing list of word and their corresponding indexes
 		# print the sentence pair and the indonesian file with the english aligned version
