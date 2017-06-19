@@ -240,8 +240,8 @@ def get_sentence_number(line):
 
 # input the name of giza file and anotator file here
 a3_giza_file = '200_testing_giza.txt'
-a3_anotator_file_1 = '100_testing_nadiarani.txt'
-a3_anotator_file_2 = '100_testing_jodi.txt'
+a3_anotator_file_1 = '200_testing_nadiarani.txt'
+a3_anotator_file_2 = '200_testing_jodi.txt'
 a3_bidirectional_file = '200_testing_bidirectional.txt'
 a3_crawling_file = '200_testing_crawling.txt'
 # this is the filename section
