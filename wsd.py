@@ -648,6 +648,9 @@ def allowed_word(word):
 
 def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionary, a3_file):
 	dict_of_sense_key = {}
+	dict_of_sense_key_cluster = {}
+	uniq_sense_key = {}
+	out_file = open('Resources/sense_key_cluster.txt', 'w')
 	for sentence_number in json_s['sentences'].keys():
 		sentence = json_s['sentences'][sentence_number]
 		en_tag_sentence = english_tagged_sentences[sentence_number]
@@ -670,7 +673,18 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 						sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
 				if sense_key:
 					# english word and sense_key available
+					if sense_key not in uniq_sense_key:
+						uniq_sense_key[sense_key] = 1
+					tmp = sense_key
+					if tmp not in dict_of_sense_key_cluster:
+						dict_of_sense_key_cluster[tmp] = {}
 					dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, indo_word)
+					if sense_key != tmp:
+						# then it has been clustered
+						if sense_key not in dict_of_sense_key_cluster[tmp]:
+							dict_of_sense_key_cluster[tmp][sense_key] = 1
+						else:
+							dict_of_sense_key_cluster[tmp][sense_key] += 1
 					json_s['sentences'][sentence_number]['words'][index]['sense_key'] = sense_key
 		# processing the multiword start here
 		sentence = json_s['sentences'][sentence_number]
@@ -720,6 +734,20 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 								# replace the sense key for this multiword part
 								json_s['sentences'][sentence_number]['words'][index]['sense_key'] = 'm_'+sense_key+'_m'
 		# processing multiword end here
+
+	# printing the analysis of clustering
+	total = 0
+	for sense_original in dict_of_sense_key_cluster:
+		for sense_clustered in dict_of_sense_key_cluster[sense_original]:
+			nums = dict_of_sense_key_cluster[sense_original][sense_clustered]
+			out_file.write(sense_original + ' --> ' + sense_clustered + ' : ' + str(nums) + '\n')
+			total += 1
+	out_file.write('With total : ' + str(total))
+	total = 0
+	for sense_key in uniq_sense_key:
+		total += 1
+	out_file.write('Total of uniq sense key (regardless clustering): ' total)
+	out_file.close()
 	return json_s
 
 ## end of processing
