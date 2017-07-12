@@ -650,6 +650,7 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 	dict_of_sense_key = {}
 	dict_of_sense_key_cluster = {}
 	uniq_sense_key = {}
+	total_all_transfered = 0
 	out_file = open('Resources/sense_key_cluster.txt', 'w')
 	for sentence_number in json_s['sentences'].keys():
 		sentence = json_s['sentences'][sentence_number]
@@ -673,14 +674,15 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 						sense_key = get_sense_key_from_en_tag_sentence(en_words, en_tag_sentence)
 				if sense_key:
 					# english word and sense_key available
+					total_all_transfered += 1
 					if sense_key not in uniq_sense_key:
 						uniq_sense_key[sense_key] = 1
 					tmp = sense_key
-					if tmp not in dict_of_sense_key_cluster:
-						dict_of_sense_key_cluster[tmp] = {}
 					dict_of_sense_key, sense_key = get_similar_sense_key(dict_of_sense_key, sense_key, indo_word)
 					if sense_key != tmp:
 						# then it has been clustered
+						if tmp not in dict_of_sense_key_cluster:
+							dict_of_sense_key_cluster[tmp] = {}
 						if sense_key not in dict_of_sense_key_cluster[tmp]:
 							dict_of_sense_key_cluster[tmp][sense_key] = 1
 						else:
@@ -736,17 +738,20 @@ def produce_indo_sense_tagged_corpus(json_s, english_tagged_sentences, dictionar
 		# processing multiword end here
 
 	# printing the analysis of clustering
-	total = 0
+	total, total_instance_kecluster = 0, 0
 	for sense_original in dict_of_sense_key_cluster:
+		total += 1
 		for sense_clustered in dict_of_sense_key_cluster[sense_original]:
 			nums = dict_of_sense_key_cluster[sense_original][sense_clustered]
 			out_file.write(sense_original + ' --> ' + sense_clustered + ' : ' + str(nums) + '\n')
-			total += 1
-	out_file.write('With total : ' + str(total))
+			total_instance_kecluster += nums
+	out_file.write('With total #sense_key (berapa sense key yang dicluster): ' + str(total) + '\n')
+	out_file.write('With total #instance in the sense key that has been clustered: ' + str(total_instance_kecluster) + '\n')
 	total = 0
 	for sense_key in uniq_sense_key:
 		total += 1
-	out_file.write('Total of uniq sense key (regardless clustering): ' total)
+	out_file.write('Total of uniq sense key (regardless clustering): ' + str(total) + '\n')
+	out_file.write('Total all sense key transfered (original): ' + str(total_all_transfered) + '\n')
 	out_file.close()
 	return json_s
 
