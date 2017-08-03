@@ -15,3 +15,10 @@ Untuk menjalankan evaluasi: "python automatic_evaluation.py"
 
 Folder Post Process:
 Berisi file hasil post process dari file A3 (hasil alignment)
+
+How to run:
+python wsd.py testing <test_file> <featurer>
+
+Example:
+python wsd.py testing Resources/testing_file.txt f1
+python wsd.py testing Resources/testing_file.txt f3
